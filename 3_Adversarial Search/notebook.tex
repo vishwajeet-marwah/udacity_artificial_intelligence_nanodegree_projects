@@ -1,0 +1,3020 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Report}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{report}{%
+\section{REPORT}\label{report}}
+
+    \hypertarget{option-1-advanced-heuristic}{%
+\subsubsection{Option 1: Advanced
+Heuristic}\label{option-1-advanced-heuristic}}
+
+What features of the game does your heuristic incorporate, and why do
+you think those features matter in evaluating states during search?
+Analyze the search depth your agent achieves using your custom
+heuristic. Does search speed matter more or less than accuracy to the
+performance of your heuristic?
+
+    Custom Player is implemented to search for the next best move using :
+Alpha - Beta pruning with iterative deepening
+
+Two Heuristics implemented - Standard Heuristic - Custom Heuristic to
+check for states away from the edges
+
+    \hypertarget{scenario-1a-custom-agent-with-standard-heuristic-against-random-agent}{%
+\paragraph{Scenario 1(a): Custom Agent with Standard Heuristic, against
+Random
+Agent}\label{scenario-1a-custom-agent-with-standard-heuristic-against-random-agent}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{o}{\PYZpc{}}\PY{k}{run} run\PYZus{}match.py \PYZhy{}f \PYZhy{}r 100 \PYZhy{}o RANDOM \PYZhy{}p 4
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Running 200 games:
++++++-++++--+++++++++-+++++-+++-+++++-+++++-+++-+++++++++++++++++++++++++-+++++++++++++++++++-++++++++++--++-++++++++--+++++++++++++++++++++++++++-++--+++++++++++++++++++++++++++++++++-+++++++++--+++++------+++++++++++++++++++++++-++++
+Outcome of Fair Matches:
+Running 200 games:
++++++++++---+++++++++++++++++++++++++++-+++++++++++++++--++++++++-++++++++++++++++++++++++--++++++++++-++-+++++--++++-+++++++++++++++++++++-+-+++--++++++++-+++++++++++++++++++----+++++++++++++-++++++-++++++++++++--+-++++++++-+-++++++++-
+Your agent won 86.8\% of matches against Random Agent
+
+
+    \end{Verbatim}
+
+    \hypertarget{scenario-1b-custom-agent-with-custom-heuristic-against-random-agent}{%
+\paragraph{Scenario 1(b): Custom Agent with Custom Heuristic, against
+Random
+Agent}\label{scenario-1b-custom-agent-with-custom-heuristic-against-random-agent}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{o}{\PYZpc{}}\PY{k}{run} run\PYZus{}match.py \PYZhy{}f \PYZhy{}r 100 \PYZhy{}o RANDOM \PYZhy{}p 4
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Running 200 games:
+++++++++++++-+-++++++++++++++++-+-+++++++++++++++++++++++++-++--+++++++-++++++++++++++++--+---++++++++++++++-++++++-+++++--++++++-+++++-+++++---+++--+++++++++++++++-+-++--++++++++-+++++-+--++++++++++++++++++++++--+++++++++++++++-+++++++++-
+Outcome of Fair Matches:
+Running 200 games:
++++-++-++++++++---+++++++++-++++++++++++++++++-++++++++++--++-+++++++++++++++++++++++-++-+++-++++++--++++++++-+++++++++++++++++++++++++++++++++++-+++++++++++++++++-+++++-+++++--+++++-+++++++-++++++++++-++-+++++++++++++++++++++++++-++++++++++++-++
+Your agent won 86.5\% of matches against Random Agent
+
+
+    \end{Verbatim}
+
+    \hypertarget{scenario-2a-custom-agent-with-standard-heuristic-against-greedy-agent}{%
+\paragraph{Scenario 2(a): Custom Agent with Standard Heuristic, against
+Greedy
+Agent}\label{scenario-2a-custom-agent-with-standard-heuristic-against-greedy-agent}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{o}{\PYZpc{}}\PY{k}{run} run\PYZus{}match.py \PYZhy{}f \PYZhy{}r 100 \PYZhy{}o GREEDY \PYZhy{}p 4
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Running 200 games:
++-+++++--++--+-+-+--++++---+-++++++--++---+-+--++++-+++++--+-------++-+--++---+-++++++++++++-++---++++++---++++-++-+++-+++-+++-+++----++++-++----++++++--+++--------+++++--+++-+++-++--+++++++++++-+++++--+-+-++-++-++++++--+-+--++-+++++++---+
+Outcome of Fair Matches:
+Running 200 games:
+++-++-+++-+-+++--+++-++++--+-++++---+--+++++-+-++++++++-++--+--+---+--+-++--+++++--+---+++---+---++++-+-+++++-++++++++++++++-----++---+++--+---++++--++++++----+++++++++++++-+-----++++-+--++++++++-+--+++++++-+--+----++++--+++++--+--++++++-++--+
+Your agent won 62.0\% of matches against Greedy Agent
+
+
+    \end{Verbatim}
+
+    \hypertarget{scenario-2b-custom-agent-with-custom-heuristic-against-greedy-agent}{%
+\paragraph{Scenario 2(b): Custom Agent with Custom Heuristic, against
+Greedy
+Agent}\label{scenario-2b-custom-agent-with-custom-heuristic-against-greedy-agent}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{o}{\PYZpc{}}\PY{k}{run} run\PYZus{}match.py \PYZhy{}f \PYZhy{}r 100 \PYZhy{}o GREEDY \PYZhy{}p 4
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Running 200 games:
++-+++--+---++++++-++-+++++++++++-+++++---++-+++++-+++++++-++---+++---+++++++---+---++++--++-+++++++++-+++++--++---++-++--++++-++-+----+-+---+++++++++++-+++++++++--++++++----+++-+----+--+--+++---+++++++++--+-++++-+++--+++++++-+++++++----+++---++-+++++++++++++++
+Outcome of Fair Matches:
+Running 200 games:
+----++-+++--+----+-+++--+--++++-+++++++++-+++--+-++++-++----++++++--+++-++++-++-+---+-++--++-++++++++--+---++++---++++++++-++++++--+---+++-++++++---+++--++-----+-+++++---+-++---+-+++++---+++++++-+++++++++--+---+++++-+-+++--+-+-+++--+--+----
+Your agent won 65.0\% of matches against Greedy Agent
+
+
+    \end{Verbatim}
+
+    \hypertarget{scenario-3a-custom-player-with-standard-heuristic-against-minimax-agent}{%
+\paragraph{Scenario 3(a): Custom Player with Standard Heuristic, against
+Minimax
+Agent}\label{scenario-3a-custom-player-with-standard-heuristic-against-minimax-agent}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{o}{\PYZpc{}}\PY{k}{run} run\PYZus{}match.py \PYZhy{}f \PYZhy{}r 100 \PYZhy{}o MINIMAX \PYZhy{}p 4
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Running 200 games:
++--+--+-+--+---------------++--+-+-++--++-------+------++++----+--+--------+--++---++---+-++++--++-+--+--+--++-+---+--+-+-+---+++-+++++--++---+-----+--+-----------++++--------+--+++-------+++++++-++--+--++++++-+++-+-+-++++----+++----++
+Outcome of Fair Matches:
+Running 200 games:
+-+---++--++-------+--------++---+++------++------------++---+-+-+---+++-+---------------+--+-++---++------+++----++++---+-+++-+-+-+--------+--++--++-++--+----+----+--++---++---+++--++-+-+++----++--+---+-++--++---+--+-++----+-++--+--+----++-
+Your agent won 38.5\% of matches against Minimax Agent
+
+
+    \end{Verbatim}
+
+    \hypertarget{scenario-3b-custom-agent-with-custom-heuristic-against-minimax-agent}{%
+\paragraph{Scenario 3(b): Custom Agent with Custom Heuristic, against
+Minimax
+Agent}\label{scenario-3b-custom-agent-with-custom-heuristic-against-minimax-agent}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{o}{\PYZpc{}}\PY{k}{run} run\PYZus{}match.py \PYZhy{}f \PYZhy{}r 100 \PYZhy{}o MINIMAX \PYZhy{}p 4
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Running 200 games:
+--++++---+--+++----+++-+++------+++-+--++------+-+++-++------++-----++--+-+++-++++---++-+--+---+-++-+--+----+--++++++-+-++++----+-+++-+++----+-++-+----+---++-++++-+--+--++-++-----+--+--++--++--+-+---++-+---+-++----++-----++---+----++---+++----+--
+Outcome of Fair Matches:
+Running 200 games:
+-----+--++-+++------+-+++--++--+--+---------+--+---------+--++----++---++---+-++--++-+-+---+-+---+++--++-+-+++---------++---++-+--+-+--+---++--++-------++++--------+++------+-++--++----+------++--++---------++++----------+--+---+---++++++-+++-+
+Your agent won 39.2\% of matches against Minimax Agent
+
+
+    \end{Verbatim}
+
+    Option 2: Develop an opening book (must span at least depth 4 of the
+search tree) Write your own code to develop an opening book of the best
+moves for every possible game state from an empty board to at least a
+depth of 4 plies Create a performance baseline using run\_search.py
+(with the fair\_matches flag disabled) to evaluate the effectiveness of
+your agent using randomly chosen opening moves. (You can use any
+heuristic function, but you should use the same heuristic on your agent
+for all experiments.) Use the same procedure to evaluate the
+effectiveness of your agent when early moves are selected from your
+opening book
+
+Hints: Developing an opening book can require long run-times to simulate
+games and accumulate outcome statistics If the results are very close,
+try increasing the number of matches (e.g., \textgreater{}100) to
+increase your confidence in the results
+
+    \hypertarget{option-2-opening-book}{%
+\subsubsection{Option 2: Opening book}\label{option-2-opening-book}}
+
+Describe your process for collecting statistics to build your opening
+book. How did you choose states to sample? And how did you perform
+rollouts to determine a winner? What opening moves does your book
+suggest are most effective on an empty board for player 1 and what is
+player 2's best reply?
+
+    Code Output: open\_book.py
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{o}{\PYZpc{}}\PY{k}{run} open\PYZus{}book.py
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Enter open\_book \_\_main\_\_
+Round No. 1
+Player Id: 1
+Book State: Isolation(board=20753963711536992374846913352034303, ply\_count=3, locs=(87, 93))
+Action: \{<Action.ENE: 11>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753963866279497285519447714424831, ply\_count=2, locs=(114, 93))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 1
+Book State: Isolation(board=20753973769799811568561646907418623, ply\_count=1, locs=(114, None))
+Action: \{93: -1\}
+Player Id: 0
+Book State: Isolation(board=41523161203939122082683632224299007, ply\_count=0, locs=(None, None))
+Action: \{114: 1\}
+
+Round No. 2
+Player Id: 1
+Book State: Isolation(board=31138567482033763511135325848070143, ply\_count=3, locs=(82, 113))
+Action: \{<Action.SSW: -25>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753963866279497285519447714424831, ply\_count=2, locs=(114, 93))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 0
+Book State: Isolation(board=31138567486869466789593842546894847, ply\_count=2, locs=(55, 113))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122046654835205335039, ply\_count=1, locs=(55, None))
+Action: \{113: -1\}
+Player Id: 1
+Book State: Isolation(board=20753963711536992374846913352034303, ply\_count=3, locs=(87, 93))
+Action: \{<Action.ENE: 11>: -1\}
+Player Id: 1
+Book State: Isolation(board=20753973769799811568561646907418623, ply\_count=1, locs=(114, None))
+Action: \{93: -1\}
+Player Id: 0
+Book State: Isolation(board=41523161203939122082683632224299007, ply\_count=0, locs=(None, None))
+Action: \{114: 1, 55: 1\}
+
+Round No. 3
+Player Id: 1
+Book State: Isolation(board=31138567482033763511135325848070143, ply\_count=3, locs=(82, 113))
+Action: \{<Action.SSW: -25>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753963866279497285519447714424831, ply\_count=2, locs=(114, 93))
+Action: \{<Action.SSE: -27>: 2\}
+Player Id: 0
+Book State: Isolation(board=31138567486869466789593842546894847, ply\_count=2, locs=(55, 113))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122046654835205335039, ply\_count=1, locs=(55, None))
+Action: \{113: -1\}
+Player Id: 1
+Book State: Isolation(board=20753963711536992374846913352034303, ply\_count=3, locs=(87, 93))
+Action: \{<Action.ENE: 11>: -2\}
+Player Id: 1
+Book State: Isolation(board=20753973769799811568561646907418623, ply\_count=1, locs=(114, None))
+Action: \{93: -2\}
+Player Id: 0
+Book State: Isolation(board=41523161203939122082683632224299007, ply\_count=0, locs=(None, None))
+Action: \{114: 2, 55: 1\}
+
+Round No. 4
+Player Id: 1
+Book State: Isolation(board=31138567482033763511135325848070143, ply\_count=3, locs=(82, 113))
+Action: \{<Action.SSW: -25>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753963866279497285519447714424831, ply\_count=2, locs=(114, 93))
+Action: \{<Action.SSE: -27>: 2\}
+Player Id: 1
+Book State: Isolation(board=20750804643299240995057905149405183, ply\_count=3, locs=(99, 101))
+Action: \{<Action.ENE: 11>: 1\}
+Player Id: 0
+Book State: Isolation(board=31138567486869466789593842546894847, ply\_count=2, locs=(55, 113))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122046654835205335039, ply\_count=1, locs=(55, None))
+Action: \{113: -1\}
+Player Id: 1
+Book State: Isolation(board=20753963711536992374846913352034303, ply\_count=3, locs=(87, 93))
+Action: \{<Action.ENE: 11>: -2\}
+Player Id: 0
+Book State: Isolation(board=20751438468599355109758653501007871, ply\_count=2, locs=(114, 101))
+Action: \{<Action.ESE: -15>: -1\}
+Player Id: 1
+Book State: Isolation(board=20753973769799811568561646907418623, ply\_count=1, locs=(114, None))
+Action: \{93: -2, 101: 1\}
+Player Id: 0
+Book State: Isolation(board=41523161203939122082683632224299007, ply\_count=0, locs=(None, None))
+Action: \{114: 1, 55: 1\}
+
+Round No. 5
+Player Id: 1
+Book State: Isolation(board=31138567482033763511135325848070143, ply\_count=3, locs=(82, 113))
+Action: \{<Action.SSW: -25>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753963866279497285519447714424831, ply\_count=2, locs=(114, 93))
+Action: \{<Action.SSE: -27>: 2\}
+Player Id: 0
+Book State: Isolation(board=20753968818039654427040547310921727, ply\_count=2, locs=(114, 92))
+Action: \{<Action.ESE: -15>: 1\}
+Player Id: 1
+Book State: Isolation(board=20750804643299240995057905149405183, ply\_count=3, locs=(99, 101))
+Action: \{<Action.ENE: 11>: 1\}
+Player Id: 1
+Book State: Isolation(board=20753334992739540312339798959319039, ply\_count=3, locs=(99, 92))
+Action: \{<Action.WNW: 15>: -1\}
+Player Id: 0
+Book State: Isolation(board=31138567486869466789593842546894847, ply\_count=2, locs=(55, 113))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122046654835205335039, ply\_count=1, locs=(55, None))
+Action: \{113: -1\}
+Player Id: 1
+Book State: Isolation(board=20753963711536992374846913352034303, ply\_count=3, locs=(87, 93))
+Action: \{<Action.ENE: 11>: -2\}
+Player Id: 0
+Book State: Isolation(board=20751438468599355109758653501007871, ply\_count=2, locs=(114, 101))
+Action: \{<Action.ESE: -15>: -1\}
+Player Id: 1
+Book State: Isolation(board=20753973769799811568561646907418623, ply\_count=1, locs=(114, None))
+Action: \{92: -1, 93: -2, 101: 1\}
+Player Id: 0
+Book State: Isolation(board=41523161203939122082683632224299007, ply\_count=0, locs=(None, None))
+Action: \{114: 2, 55: 1\}
+
+Round No. 6
+Player Id: 1
+Book State: Isolation(board=31138567482033763511135325848070143, ply\_count=3, locs=(82, 113))
+Action: \{<Action.SSW: -25>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753968818039654427040547310921727, ply\_count=2, locs=(114, 92))
+Action: \{<Action.ESE: -15>: 1\}
+Player Id: 0
+Book State: Isolation(board=31138567486869466789593842546894847, ply\_count=2, locs=(55, 113))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 1
+Book State: Isolation(board=20753963711536992374846913352034303, ply\_count=3, locs=(87, 93))
+Action: \{<Action.ENE: 11>: -2\}
+Player Id: 1
+Book State: Isolation(board=20753973769799811568561646907418623, ply\_count=1, locs=(114, None))
+Action: \{65: -1, 92: -1, 93: -2, 101: 1\}
+Player Id: 1
+Book State: Isolation(board=20753973615057269764400965125924863, ply\_count=3, locs=(87, 65))
+Action: \{<Action.NNW: 27>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753963866279497285519447714424831, ply\_count=2, locs=(114, 93))
+Action: \{<Action.SSE: -27>: 2\}
+Player Id: 1
+Book State: Isolation(board=20750804643299240995057905149405183, ply\_count=3, locs=(99, 101))
+Action: \{<Action.ENE: 11>: 1\}
+Player Id: 1
+Book State: Isolation(board=20753334992739540312339798959319039, ply\_count=3, locs=(99, 92))
+Action: \{<Action.WNW: 15>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753973769799774675073499488315391, ply\_count=2, locs=(114, 65))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122046654835205335039, ply\_count=1, locs=(55, None))
+Action: \{113: -1\}
+Player Id: 0
+Book State: Isolation(board=20751438468599355109758653501007871, ply\_count=2, locs=(114, 101))
+Action: \{<Action.ESE: -15>: -1\}
+Player Id: 0
+Book State: Isolation(board=41523161203939122082683632224299007, ply\_count=0, locs=(None, None))
+Action: \{114: 3, 55: 1\}
+
+Round No. 7
+Player Id: 1
+Book State: Isolation(board=31138567482033763511135325848070143, ply\_count=3, locs=(82, 113))
+Action: \{<Action.SSW: -25>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753968818039654427040547310921727, ply\_count=2, locs=(114, 92))
+Action: \{<Action.ESE: -15>: 1\}
+Player Id: 0
+Book State: Isolation(board=31138567486869466789593842546894847, ply\_count=2, locs=(55, 113))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 1
+Book State: Isolation(board=20753963711536992374846913352034303, ply\_count=3, locs=(87, 93))
+Action: \{<Action.ENE: 11>: -3\}
+Player Id: 1
+Book State: Isolation(board=20753973769799811568561646907418623, ply\_count=1, locs=(114, None))
+Action: \{65: -1, 92: -1, 93: -3, 101: 1\}
+Player Id: 1
+Book State: Isolation(board=20753973615057269764400965125924863, ply\_count=3, locs=(87, 65))
+Action: \{<Action.NNW: 27>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753963866279497285519447714424831, ply\_count=2, locs=(114, 93))
+Action: \{<Action.SSE: -27>: 3\}
+Player Id: 1
+Book State: Isolation(board=20750804643299240995057905149405183, ply\_count=3, locs=(99, 101))
+Action: \{<Action.ENE: 11>: 1\}
+Player Id: 1
+Book State: Isolation(board=20753334992739540312339798959319039, ply\_count=3, locs=(99, 92))
+Action: \{<Action.WNW: 15>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753973769799774675073499488315391, ply\_count=2, locs=(114, 65))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122046654835205335039, ply\_count=1, locs=(55, None))
+Action: \{113: -1\}
+Player Id: 0
+Book State: Isolation(board=20751438468599355109758653501007871, ply\_count=2, locs=(114, 101))
+Action: \{<Action.ESE: -15>: -1\}
+Player Id: 0
+Book State: Isolation(board=41523161203939122082683632224299007, ply\_count=0, locs=(None, None))
+Action: \{114: 4, 55: 1\}
+
+Round No. 8
+Player Id: 1
+Book State: Isolation(board=31138567482033763511135325848070143, ply\_count=3, locs=(82, 113))
+Action: \{<Action.SSW: -25>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753968818039654427040547310921727, ply\_count=2, locs=(114, 92))
+Action: \{<Action.ESE: -15>: 1\}
+Player Id: 0
+Book State: Isolation(board=31138567486869466789593842546894847, ply\_count=2, locs=(55, 113))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 1
+Book State: Isolation(board=20753963711536992374846913352034303, ply\_count=3, locs=(87, 93))
+Action: \{<Action.ENE: 11>: -3\}
+Player Id: 1
+Book State: Isolation(board=20753973769799811568561646907418623, ply\_count=1, locs=(114, None))
+Action: \{65: -1, 92: -1, 93: -3, 101: 1\}
+Player Id: 1
+Book State: Isolation(board=20753973615057269764400965125924863, ply\_count=3, locs=(87, 65))
+Action: \{<Action.NNW: 27>: -1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082402122885752831, ply\_count=3, locs=(48, 35))
+Action: \{<Action.SSW: -25>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753963866279497285519447714424831, ply\_count=2, locs=(114, 93))
+Action: \{<Action.SSE: -27>: 3\}
+Player Id: 1
+Book State: Isolation(board=20750804643299240995057905149405183, ply\_count=3, locs=(99, 101))
+Action: \{<Action.ENE: 11>: 1\}
+Player Id: 1
+Book State: Isolation(board=20753334992739540312339798959319039, ply\_count=3, locs=(99, 92))
+Action: \{<Action.WNW: 15>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753973769799774675073499488315391, ply\_count=2, locs=(114, 65))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122046654835205335039, ply\_count=1, locs=(55, None))
+Action: \{113: -1\}
+Player Id: 0
+Book State: Isolation(board=20751438468599355109758653501007871, ply\_count=2, locs=(114, 101))
+Action: \{<Action.ESE: -15>: -1\}
+Player Id: 0
+Book State: Isolation(board=41523161203939122082683632224299007, ply\_count=0, locs=(None, None))
+Action: \{114: 4, 21: 1, 55: 1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082683632222201855, ply\_count=1, locs=(21, None))
+Action: \{35: -1\}
+Player Id: 0
+Book State: Isolation(board=41523161203939122082683597862463487, ply\_count=2, locs=(21, 35))
+Action: \{<Action.NNW: 27>: 1\}
+
+Round No. 9
+Player Id: 1
+Book State: Isolation(board=31138567482033763511135325848070143, ply\_count=3, locs=(82, 113))
+Action: \{<Action.SSW: -25>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753968818039654427040547310921727, ply\_count=2, locs=(114, 92))
+Action: \{<Action.ESE: -15>: 1\}
+Player Id: 0
+Book State: Isolation(board=31138567486869466789593842546894847, ply\_count=2, locs=(55, 113))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 1
+Book State: Isolation(board=20753963711536992374846913352034303, ply\_count=3, locs=(87, 93))
+Action: \{<Action.ENE: 11>: -3\}
+Player Id: 1
+Book State: Isolation(board=20753973769799811568561646907418623, ply\_count=1, locs=(114, None))
+Action: \{65: -1, 92: -1, 93: -4, 101: 1\}
+Player Id: 1
+Book State: Isolation(board=20753973615057269764400965125924863, ply\_count=3, locs=(87, 65))
+Action: \{<Action.NNW: 27>: -1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082402122885752831, ply\_count=3, locs=(48, 35))
+Action: \{<Action.SSW: -25>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753963866279497285519447714424831, ply\_count=2, locs=(114, 93))
+Action: \{<Action.ESE: -15>: 1, <Action.SSE: -27>: 3\}
+Player Id: 1
+Book State: Isolation(board=20750804643299240995057905149405183, ply\_count=3, locs=(99, 101))
+Action: \{<Action.ENE: 11>: 1\}
+Player Id: 1
+Book State: Isolation(board=20753334992739540312339798959319039, ply\_count=3, locs=(99, 92))
+Action: \{<Action.WNW: 15>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753973769799774675073499488315391, ply\_count=2, locs=(114, 65))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122046654835205335039, ply\_count=1, locs=(55, None))
+Action: \{113: -1\}
+Player Id: 0
+Book State: Isolation(board=20751438468599355109758653501007871, ply\_count=2, locs=(114, 101))
+Action: \{<Action.ESE: -15>: -1\}
+Player Id: 1
+Book State: Isolation(board=20753330040979383170818699362822143, ply\_count=3, locs=(99, 93))
+Action: \{<Action.ENE: 11>: -1\}
+Player Id: 0
+Book State: Isolation(board=41523161203939122082683632224299007, ply\_count=0, locs=(None, None))
+Action: \{114: 5, 21: 1, 55: 1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082683632222201855, ply\_count=1, locs=(21, None))
+Action: \{35: -1\}
+Player Id: 0
+Book State: Isolation(board=41523161203939122082683597862463487, ply\_count=2, locs=(21, 35))
+Action: \{<Action.NNW: 27>: 1\}
+
+Round No. 10
+Player Id: 1
+Book State: Isolation(board=31138567482033763511135325848070143, ply\_count=3, locs=(82, 113))
+Action: \{<Action.SSW: -25>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753968818039654427040547310921727, ply\_count=2, locs=(114, 92))
+Action: \{<Action.ESE: -15>: 1\}
+Player Id: 0
+Book State: Isolation(board=31138567486869466789593842546894847, ply\_count=2, locs=(55, 113))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 1
+Book State: Isolation(board=20753963711536992374846913352034303, ply\_count=3, locs=(87, 93))
+Action: \{<Action.ENE: 11>: -4\}
+Player Id: 1
+Book State: Isolation(board=20753973769799811568561646907418623, ply\_count=1, locs=(114, None))
+Action: \{65: -1, 92: -1, 93: -5, 101: 1\}
+Player Id: 1
+Book State: Isolation(board=20753973615057269764400965125924863, ply\_count=3, locs=(87, 65))
+Action: \{<Action.NNW: 27>: -1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082402122885752831, ply\_count=3, locs=(48, 35))
+Action: \{<Action.SSW: -25>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753963866279497285519447714424831, ply\_count=2, locs=(114, 93))
+Action: \{<Action.ESE: -15>: 1, <Action.SSE: -27>: 4\}
+Player Id: 1
+Book State: Isolation(board=20750804643299240995057905149405183, ply\_count=3, locs=(99, 101))
+Action: \{<Action.ENE: 11>: 1\}
+Player Id: 1
+Book State: Isolation(board=20753334992739540312339798959319039, ply\_count=3, locs=(99, 92))
+Action: \{<Action.WNW: 15>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753973769799774675073499488315391, ply\_count=2, locs=(114, 65))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122046654835205335039, ply\_count=1, locs=(55, None))
+Action: \{113: -1\}
+Player Id: 0
+Book State: Isolation(board=20751438468599355109758653501007871, ply\_count=2, locs=(114, 101))
+Action: \{<Action.ESE: -15>: -1\}
+Player Id: 1
+Book State: Isolation(board=20753330040979383170818699362822143, ply\_count=3, locs=(99, 93))
+Action: \{<Action.ENE: 11>: -1\}
+Player Id: 0
+Book State: Isolation(board=41523161203939122082683632224299007, ply\_count=0, locs=(None, None))
+Action: \{114: 6, 21: 1, 55: 1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082683632222201855, ply\_count=1, locs=(21, None))
+Action: \{35: -1\}
+Player Id: 0
+Book State: Isolation(board=41523161203939122082683597862463487, ply\_count=2, locs=(21, 35))
+Action: \{<Action.NNW: 27>: 1\}
+
+Round No. 11
+Player Id: 1
+Book State: Isolation(board=31138567482033763511135325848070143, ply\_count=3, locs=(82, 113))
+Action: \{<Action.SSW: -25>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753968818039654427040547310921727, ply\_count=2, locs=(114, 92))
+Action: \{<Action.ESE: -15>: 1\}
+Player Id: 0
+Book State: Isolation(board=31138567486869466789593842546894847, ply\_count=2, locs=(55, 113))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 1
+Book State: Isolation(board=36330547432744792663837022428850175, ply\_count=3, locs=(73, 112))
+Action: \{<Action.ESE: -15>: -1\}
+Player Id: 1
+Book State: Isolation(board=20753963711536992374846913352034303, ply\_count=3, locs=(87, 93))
+Action: \{<Action.ENE: 11>: -4\}
+Player Id: 1
+Book State: Isolation(board=20753973769799811568561646907418623, ply\_count=1, locs=(114, None))
+Action: \{65: -1, 92: -1, 93: -5, 101: 1\}
+Player Id: 1
+Book State: Isolation(board=20753973615057269764400965125924863, ply\_count=3, locs=(87, 65))
+Action: \{<Action.NNW: 27>: -1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082402122885752831, ply\_count=3, locs=(48, 35))
+Action: \{<Action.SSW: -25>: -1\}
+Player Id: 0
+Book State: Isolation(board=36330547432754237396802761719277567, ply\_count=2, locs=(98, 112))
+Action: \{<Action.SSW: -25>: 1\}
+Player Id: 0
+Book State: Isolation(board=20753963866279497285519447714424831, ply\_count=2, locs=(114, 93))
+Action: \{<Action.ESE: -15>: 1, <Action.SSE: -27>: 4\}
+Player Id: 1
+Book State: Isolation(board=20750804643299240995057905149405183, ply\_count=3, locs=(99, 101))
+Action: \{<Action.ENE: 11>: 1\}
+Player Id: 1
+Book State: Isolation(board=20753334992739540312339798959319039, ply\_count=3, locs=(99, 92))
+Action: \{<Action.WNW: 15>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753973769799774675073499488315391, ply\_count=2, locs=(114, 65))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122046654835205335039, ply\_count=1, locs=(55, None))
+Action: \{113: -1\}
+Player Id: 0
+Book State: Isolation(board=20751438468599355109758653501007871, ply\_count=2, locs=(114, 101))
+Action: \{<Action.ESE: -15>: -1\}
+Player Id: 1
+Book State: Isolation(board=41522844291289065025333258048497663, ply\_count=1, locs=(98, None))
+Action: \{112: -1\}
+Player Id: 1
+Book State: Isolation(board=20753330040979383170818699362822143, ply\_count=3, locs=(99, 93))
+Action: \{<Action.ENE: 11>: -1\}
+Player Id: 0
+Book State: Isolation(board=41523161203939122082683632224299007, ply\_count=0, locs=(None, None))
+Action: \{114: 6, 55: 1, 98: 1, 21: 1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082683632222201855, ply\_count=1, locs=(21, None))
+Action: \{35: -1\}
+Player Id: 0
+Book State: Isolation(board=41523161203939122082683597862463487, ply\_count=2, locs=(21, 35))
+Action: \{<Action.NNW: 27>: 1\}
+
+Round No. 12
+Player Id: 1
+Book State: Isolation(board=31138567482033763511135325848070143, ply\_count=3, locs=(82, 113))
+Action: \{<Action.SSW: -25>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753968818039654427040547310921727, ply\_count=2, locs=(114, 92))
+Action: \{<Action.ESE: -15>: 1\}
+Player Id: 0
+Book State: Isolation(board=31138567486869466789593842546894847, ply\_count=2, locs=(55, 113))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 1
+Book State: Isolation(board=36330547432744792663837022428850175, ply\_count=3, locs=(73, 112))
+Action: \{<Action.ESE: -15>: -1\}
+Player Id: 1
+Book State: Isolation(board=20753963711536992374846913352034303, ply\_count=3, locs=(87, 93))
+Action: \{<Action.ENE: 11>: -5\}
+Player Id: 1
+Book State: Isolation(board=20753973769799811568561646907418623, ply\_count=1, locs=(114, None))
+Action: \{65: -1, 92: -1, 93: -6, 101: 1\}
+Player Id: 1
+Book State: Isolation(board=20753973615057269764400965125924863, ply\_count=3, locs=(87, 65))
+Action: \{<Action.NNW: 27>: -1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082402122885752831, ply\_count=3, locs=(48, 35))
+Action: \{<Action.SSW: -25>: -1\}
+Player Id: 0
+Book State: Isolation(board=36330547432754237396802761719277567, ply\_count=2, locs=(98, 112))
+Action: \{<Action.SSW: -25>: 1\}
+Player Id: 0
+Book State: Isolation(board=20753963866279497285519447714424831, ply\_count=2, locs=(114, 93))
+Action: \{<Action.ESE: -15>: 1, <Action.SSE: -27>: 5\}
+Player Id: 1
+Book State: Isolation(board=20750804643299240995057905149405183, ply\_count=3, locs=(99, 101))
+Action: \{<Action.ENE: 11>: 1\}
+Player Id: 1
+Book State: Isolation(board=20753334992739540312339798959319039, ply\_count=3, locs=(99, 92))
+Action: \{<Action.WNW: 15>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753973769799774675073499488315391, ply\_count=2, locs=(114, 65))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122046654835205335039, ply\_count=1, locs=(55, None))
+Action: \{113: -1\}
+Player Id: 0
+Book State: Isolation(board=20751438468599355109758653501007871, ply\_count=2, locs=(114, 101))
+Action: \{<Action.ESE: -15>: -1\}
+Player Id: 1
+Book State: Isolation(board=41522844291289065025333258048497663, ply\_count=1, locs=(98, None))
+Action: \{112: -1\}
+Player Id: 1
+Book State: Isolation(board=20753330040979383170818699362822143, ply\_count=3, locs=(99, 93))
+Action: \{<Action.ENE: 11>: -1\}
+Player Id: 0
+Book State: Isolation(board=41523161203939122082683632224299007, ply\_count=0, locs=(None, None))
+Action: \{114: 7, 55: 1, 98: 1, 21: 1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082683632222201855, ply\_count=1, locs=(21, None))
+Action: \{35: -1\}
+Player Id: 0
+Book State: Isolation(board=41523161203939122082683597862463487, ply\_count=2, locs=(21, 35))
+Action: \{<Action.NNW: 27>: 1\}
+
+Round No. 13
+Player Id: 1
+Book State: Isolation(board=31138567482033763511135325848070143, ply\_count=3, locs=(82, 113))
+Action: \{<Action.SSW: -25>: -1\}
+Player Id: 1
+Book State: Isolation(board=41522527378639007967982883335825403, ply\_count=3, locs=(29, 99))
+Action: \{<Action.WNW: 15>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753968818039654427040547310921727, ply\_count=2, locs=(114, 92))
+Action: \{<Action.ESE: -15>: 1\}
+Player Id: 1
+Book State: Isolation(board=36330547432744792663837022428850175, ply\_count=3, locs=(73, 112))
+Action: \{<Action.ESE: -15>: -1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082683632224299003, ply\_count=1, locs=(2, None))
+Action: \{99: -1\}
+Player Id: 1
+Book State: Isolation(board=20753973769799811568561646907418623, ply\_count=1, locs=(114, None))
+Action: \{65: -1, 92: -1, 93: -6, 101: 1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082402122885752831, ply\_count=3, locs=(48, 35))
+Action: \{<Action.SSW: -25>: -1\}
+Player Id: 1
+Book State: Isolation(board=20753334992739540312339798959319039, ply\_count=3, locs=(99, 92))
+Action: \{<Action.WNW: 15>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753973769799774675073499488315391, ply\_count=2, locs=(114, 65))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 0
+Book State: Isolation(board=36330547432754237396802761719277567, ply\_count=2, locs=(98, 112))
+Action: \{<Action.SSW: -25>: 1\}
+Player Id: 0
+Book State: Isolation(board=41522527378639007967982883872696315, ply\_count=2, locs=(2, 99))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 0
+Book State: Isolation(board=20751438468599355109758653501007871, ply\_count=2, locs=(114, 101))
+Action: \{<Action.ESE: -15>: -1\}
+Player Id: 0
+Book State: Isolation(board=41523161203939122082683632224299007, ply\_count=0, locs=(None, None))
+Action: \{55: 1, 2: 1, 98: 1, 114: 7, 21: 1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082683632222201855, ply\_count=1, locs=(21, None))
+Action: \{35: -1\}
+Player Id: 0
+Book State: Isolation(board=31138567486869466789593842546894847, ply\_count=2, locs=(55, 113))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 1
+Book State: Isolation(board=20753963711536992374846913352034303, ply\_count=3, locs=(87, 93))
+Action: \{<Action.ENE: 11>: -5\}
+Player Id: 1
+Book State: Isolation(board=20753973615057269764400965125924863, ply\_count=3, locs=(87, 65))
+Action: \{<Action.NNW: 27>: -1\}
+Player Id: 0
+Book State: Isolation(board=41523161203939122082683597862463487, ply\_count=2, locs=(21, 35))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 0
+Book State: Isolation(board=20753963866279497285519447714424831, ply\_count=2, locs=(114, 93))
+Action: \{<Action.ESE: -15>: 1, <Action.SSE: -27>: 5\}
+Player Id: 1
+Book State: Isolation(board=20750804643299240995057905149405183, ply\_count=3, locs=(99, 101))
+Action: \{<Action.ENE: 11>: 1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122046654835205335039, ply\_count=1, locs=(55, None))
+Action: \{113: -1\}
+Player Id: 1
+Book State: Isolation(board=41522844291289065025333258048497663, ply\_count=1, locs=(98, None))
+Action: \{112: -1\}
+Player Id: 1
+Book State: Isolation(board=20753330040979383170818699362822143, ply\_count=3, locs=(99, 93))
+Action: \{<Action.ENE: 11>: -1\}
+
+Round No. 14
+Player Id: 1
+Book State: Isolation(board=31138567482033763511135325848070143, ply\_count=3, locs=(82, 113))
+Action: \{<Action.SSW: -25>: -1\}
+Player Id: 1
+Book State: Isolation(board=41522527378639007967982883335825403, ply\_count=3, locs=(29, 99))
+Action: \{<Action.WNW: 15>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753968818039654427040547310921727, ply\_count=2, locs=(114, 92))
+Action: \{<Action.ESE: -15>: 1\}
+Player Id: 1
+Book State: Isolation(board=36330547432744792663837022428850175, ply\_count=3, locs=(73, 112))
+Action: \{<Action.ESE: -15>: -1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082683632224299003, ply\_count=1, locs=(2, None))
+Action: \{99: -1\}
+Player Id: 1
+Book State: Isolation(board=20753973769799811568561646907418623, ply\_count=1, locs=(114, None))
+Action: \{65: -1, 92: -1, 93: -7, 101: 1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082402122885752831, ply\_count=3, locs=(48, 35))
+Action: \{<Action.SSW: -25>: -1\}
+Player Id: 1
+Book State: Isolation(board=20753334992739540312339798959319039, ply\_count=3, locs=(99, 92))
+Action: \{<Action.WNW: 15>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753973769799774675073499488315391, ply\_count=2, locs=(114, 65))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 0
+Book State: Isolation(board=36330547432754237396802761719277567, ply\_count=2, locs=(98, 112))
+Action: \{<Action.SSW: -25>: 1\}
+Player Id: 0
+Book State: Isolation(board=41522527378639007967982883872696315, ply\_count=2, locs=(2, 99))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 0
+Book State: Isolation(board=20751438468599355109758653501007871, ply\_count=2, locs=(114, 101))
+Action: \{<Action.ESE: -15>: -1\}
+Player Id: 0
+Book State: Isolation(board=41523161203939122082683632224299007, ply\_count=0, locs=(None, None))
+Action: \{55: 1, 2: 1, 98: 1, 114: 8, 21: 1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082683632222201855, ply\_count=1, locs=(21, None))
+Action: \{35: -1\}
+Player Id: 0
+Book State: Isolation(board=31138567486869466789593842546894847, ply\_count=2, locs=(55, 113))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 1
+Book State: Isolation(board=20753963711536992374846913352034303, ply\_count=3, locs=(87, 93))
+Action: \{<Action.ENE: 11>: -6\}
+Player Id: 1
+Book State: Isolation(board=20753973615057269764400965125924863, ply\_count=3, locs=(87, 65))
+Action: \{<Action.NNW: 27>: -1\}
+Player Id: 0
+Book State: Isolation(board=41523161203939122082683597862463487, ply\_count=2, locs=(21, 35))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 0
+Book State: Isolation(board=20753963866279497285519447714424831, ply\_count=2, locs=(114, 93))
+Action: \{<Action.ESE: -15>: 1, <Action.SSE: -27>: 6\}
+Player Id: 1
+Book State: Isolation(board=20750804643299240995057905149405183, ply\_count=3, locs=(99, 101))
+Action: \{<Action.ENE: 11>: 1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122046654835205335039, ply\_count=1, locs=(55, None))
+Action: \{113: -1\}
+Player Id: 1
+Book State: Isolation(board=41522844291289065025333258048497663, ply\_count=1, locs=(98, None))
+Action: \{112: -1\}
+Player Id: 1
+Book State: Isolation(board=20753330040979383170818699362822143, ply\_count=3, locs=(99, 93))
+Action: \{<Action.ENE: 11>: -1\}
+
+Round No. 15
+Player Id: 1
+Book State: Isolation(board=31138567482033763511135325848070143, ply\_count=3, locs=(82, 113))
+Action: \{<Action.SSW: -25>: -1\}
+Player Id: 1
+Book State: Isolation(board=41522527378639007967982883335825403, ply\_count=3, locs=(29, 99))
+Action: \{<Action.WNW: 15>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753968818039654427040547310921727, ply\_count=2, locs=(114, 92))
+Action: \{<Action.ESE: -15>: 1\}
+Player Id: 1
+Book State: Isolation(board=36330547432744792663837022428850175, ply\_count=3, locs=(73, 112))
+Action: \{<Action.ESE: -15>: -1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082683632224299003, ply\_count=1, locs=(2, None))
+Action: \{99: -1\}
+Player Id: 1
+Book State: Isolation(board=20753973769799811568561646907418623, ply\_count=1, locs=(114, None))
+Action: \{65: -1, 101: 1, 92: -1, 93: -7, 31: -1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082402122885752831, ply\_count=3, locs=(48, 35))
+Action: \{<Action.SSW: -25>: -1\}
+Player Id: 1
+Book State: Isolation(board=20753334992739540312339798959319039, ply\_count=3, locs=(99, 92))
+Action: \{<Action.WNW: 15>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753973769799774675073499488315391, ply\_count=2, locs=(114, 65))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 0
+Book State: Isolation(board=36330547432754237396802761719277567, ply\_count=2, locs=(98, 112))
+Action: \{<Action.SSW: -25>: 1\}
+Player Id: 0
+Book State: Isolation(board=41522527378639007967982883872696315, ply\_count=2, locs=(2, 99))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 0
+Book State: Isolation(board=20751438468599355109758653501007871, ply\_count=2, locs=(114, 101))
+Action: \{<Action.ESE: -15>: -1\}
+Player Id: 0
+Book State: Isolation(board=41523161203939122082683632224299007, ply\_count=0, locs=(None, None))
+Action: \{55: 1, 2: 1, 98: 1, 114: 9, 21: 1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082683632222201855, ply\_count=1, locs=(21, None))
+Action: \{35: -1\}
+Player Id: 0
+Book State: Isolation(board=31138567486869466789593842546894847, ply\_count=2, locs=(55, 113))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 1
+Book State: Isolation(board=20753963711536992374846913352034303, ply\_count=3, locs=(87, 93))
+Action: \{<Action.ENE: 11>: -6\}
+Player Id: 1
+Book State: Isolation(board=20753973615057269764400965125924863, ply\_count=3, locs=(87, 65))
+Action: \{<Action.NNW: 27>: -1\}
+Player Id: 0
+Book State: Isolation(board=41523161203939122082683597862463487, ply\_count=2, locs=(21, 35))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 0
+Book State: Isolation(board=20753963866279497285519447714424831, ply\_count=2, locs=(114, 93))
+Action: \{<Action.ESE: -15>: 1, <Action.SSE: -27>: 6\}
+Player Id: 1
+Book State: Isolation(board=20750804643299240995057905149405183, ply\_count=3, locs=(99, 101))
+Action: \{<Action.ENE: 11>: 1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122046654835205335039, ply\_count=1, locs=(55, None))
+Action: \{113: -1\}
+Player Id: 0
+Book State: Isolation(board=20753973769799811568561644759934975, ply\_count=2, locs=(114, 31))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 1
+Book State: Isolation(board=41522844291289065025333258048497663, ply\_count=1, locs=(98, None))
+Action: \{112: -1\}
+Player Id: 1
+Book State: Isolation(board=20753330040979383170818699362822143, ply\_count=3, locs=(99, 93))
+Action: \{<Action.ENE: 11>: -1\}
+Player Id: 1
+Book State: Isolation(board=20753973615057306657889110397544447, ply\_count=3, locs=(87, 31))
+Action: \{<Action.SSE: -27>: -1\}
+
+Round No. 16
+Player Id: 1
+Book State: Isolation(board=31138567482033763511135325848070143, ply\_count=3, locs=(82, 113))
+Action: \{<Action.SSW: -25>: -1\}
+Player Id: 1
+Book State: Isolation(board=41522527378639007967982883335825403, ply\_count=3, locs=(29, 99))
+Action: \{<Action.WNW: 15>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753968818039654427040547310921727, ply\_count=2, locs=(114, 92))
+Action: \{<Action.ESE: -15>: 1\}
+Player Id: 1
+Book State: Isolation(board=41442031564314999285562855338797055, ply\_count=3, locs=(69, 106))
+Action: \{<Action.ESE: -15>: 1\}
+Player Id: 1
+Book State: Isolation(board=36330547432744792663837022428850175, ply\_count=3, locs=(73, 112))
+Action: \{<Action.ESE: -15>: -1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082683632224299003, ply\_count=1, locs=(2, None))
+Action: \{99: -1\}
+Player Id: 1
+Book State: Isolation(board=20753973769799811568561646907418623, ply\_count=1, locs=(114, None))
+Action: \{65: -1, 101: 1, 92: -1, 93: -7, 31: -1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082402122885752831, ply\_count=3, locs=(48, 35))
+Action: \{<Action.SSW: -25>: -1\}
+Player Id: 1
+Book State: Isolation(board=20753334992739540312339798959319039, ply\_count=3, locs=(99, 92))
+Action: \{<Action.WNW: 15>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753973769799774675073499488315391, ply\_count=2, locs=(114, 65))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 0
+Book State: Isolation(board=36330547432754237396802761719277567, ply\_count=2, locs=(98, 112))
+Action: \{<Action.SSW: -25>: 1\}
+Player Id: 0
+Book State: Isolation(board=41522527378639007967982883872696315, ply\_count=2, locs=(2, 99))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 0
+Book State: Isolation(board=20751438468599355109758653501007871, ply\_count=2, locs=(114, 101))
+Action: \{<Action.ESE: -15>: -1\}
+Player Id: 0
+Book State: Isolation(board=41523161203939122082683632224299007, ply\_count=0, locs=(None, None))
+Action: \{80: -1, 2: 1, 98: 1, 55: 1, 114: 9, 21: 1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082683632222201855, ply\_count=1, locs=(21, None))
+Action: \{35: -1\}
+Player Id: 0
+Book State: Isolation(board=31138567486869466789593842546894847, ply\_count=2, locs=(55, 113))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 1
+Book State: Isolation(board=20753963711536992374846913352034303, ply\_count=3, locs=(87, 93))
+Action: \{<Action.ENE: 11>: -6\}
+Player Id: 1
+Book State: Isolation(board=41523161202730196263069003049592831, ply\_count=1, locs=(80, None))
+Action: \{106: 1\}
+Player Id: 1
+Book State: Isolation(board=20753973615057269764400965125924863, ply\_count=3, locs=(87, 65))
+Action: \{<Action.NNW: 27>: -1\}
+Player Id: 0
+Book State: Isolation(board=41523161203939122082683597862463487, ply\_count=2, locs=(21, 35))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 0
+Book State: Isolation(board=20753963866279497285519447714424831, ply\_count=2, locs=(114, 93))
+Action: \{<Action.ESE: -15>: 1, <Action.SSE: -27>: 6\}
+Player Id: 0
+Book State: Isolation(board=41442031564315589581373214044448767, ply\_count=2, locs=(80, 106))
+Action: \{<Action.WSW: -11>: -1\}
+Player Id: 1
+Book State: Isolation(board=20750804643299240995057905149405183, ply\_count=3, locs=(99, 101))
+Action: \{<Action.ENE: 11>: 1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122046654835205335039, ply\_count=1, locs=(55, None))
+Action: \{113: -1\}
+Player Id: 0
+Book State: Isolation(board=20753973769799811568561644759934975, ply\_count=2, locs=(114, 31))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 1
+Book State: Isolation(board=41522844291289065025333258048497663, ply\_count=1, locs=(98, None))
+Action: \{112: -1\}
+Player Id: 1
+Book State: Isolation(board=20753330040979383170818699362822143, ply\_count=3, locs=(99, 93))
+Action: \{<Action.ENE: 11>: -1\}
+Player Id: 1
+Book State: Isolation(board=20753973615057306657889110397544447, ply\_count=3, locs=(87, 31))
+Action: \{<Action.SSE: -27>: -1\}
+
+Round No. 17
+Player Id: 1
+Book State: Isolation(board=31138567482033763511135325848070143, ply\_count=3, locs=(82, 113))
+Action: \{<Action.SSW: -25>: -1\}
+Player Id: 1
+Book State: Isolation(board=41522527378639007967982883335825403, ply\_count=3, locs=(29, 99))
+Action: \{<Action.WNW: 15>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753968818039654427040547310921727, ply\_count=2, locs=(114, 92))
+Action: \{<Action.ESE: -15>: 1\}
+Player Id: 1
+Book State: Isolation(board=41442031564314999285562855338797055, ply\_count=3, locs=(69, 106))
+Action: \{<Action.ESE: -15>: 1\}
+Player Id: 1
+Book State: Isolation(board=36330547432744792663837022428850175, ply\_count=3, locs=(73, 112))
+Action: \{<Action.ESE: -15>: -1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082683632224299003, ply\_count=1, locs=(2, None))
+Action: \{99: -1\}
+Player Id: 1
+Book State: Isolation(board=20753973769799811568561646907418623, ply\_count=1, locs=(114, None))
+Action: \{65: -1, 101: 1, 92: -1, 93: -7, 31: -1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082402122885752831, ply\_count=3, locs=(48, 35))
+Action: \{<Action.SSW: -25>: -1\}
+Player Id: 1
+Book State: Isolation(board=20753334992739540312339798959319039, ply\_count=3, locs=(99, 92))
+Action: \{<Action.WNW: 15>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753973769799774675073499488315391, ply\_count=2, locs=(114, 65))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 0
+Book State: Isolation(board=36330547432754237396802761719277567, ply\_count=2, locs=(98, 112))
+Action: \{<Action.SSW: -25>: 1\}
+Player Id: 0
+Book State: Isolation(board=41522527378639007967982883872696315, ply\_count=2, locs=(2, 99))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 0
+Book State: Isolation(board=20751438468599355109758653501007871, ply\_count=2, locs=(114, 101))
+Action: \{<Action.ESE: -15>: -1\}
+Player Id: 0
+Book State: Isolation(board=41523161203939122082683632224299007, ply\_count=0, locs=(None, None))
+Action: \{80: -1, 2: 1, 114: 9, 55: 1, 60: 1, 98: 1, 21: 1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082683632222201855, ply\_count=1, locs=(21, None))
+Action: \{35: -1\}
+Player Id: 1
+Book State: Isolation(board=31138567332126960762028600596621311, ply\_count=3, locs=(87, 113))
+Action: \{<Action.SSW: -25>: -1\}
+Player Id: 0
+Book State: Isolation(board=31138567486869465672701134959011839, ply\_count=2, locs=(60, 113))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 0
+Book State: Isolation(board=31138567486869466789593842546894847, ply\_count=2, locs=(55, 113))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 1
+Book State: Isolation(board=20753963711536992374846913352034303, ply\_count=3, locs=(87, 93))
+Action: \{<Action.ENE: 11>: -6\}
+Player Id: 1
+Book State: Isolation(board=41523161202730196263069003049592831, ply\_count=1, locs=(80, None))
+Action: \{106: 1\}
+Player Id: 1
+Book State: Isolation(board=20753973615057269764400965125924863, ply\_count=3, locs=(87, 65))
+Action: \{<Action.NNW: 27>: -1\}
+Player Id: 0
+Book State: Isolation(board=41523161203939122082683597862463487, ply\_count=2, locs=(21, 35))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 0
+Book State: Isolation(board=20753963866279497285519447714424831, ply\_count=2, locs=(114, 93))
+Action: \{<Action.ESE: -15>: 1, <Action.SSE: -27>: 6\}
+Player Id: 0
+Book State: Isolation(board=41442031564315589581373214044448767, ply\_count=2, locs=(80, 106))
+Action: \{<Action.WSW: -11>: -1\}
+Player Id: 1
+Book State: Isolation(board=20750804643299240995057905149405183, ply\_count=3, locs=(99, 101))
+Action: \{<Action.ENE: 11>: 1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939120929762127617452031, ply\_count=1, locs=(60, None))
+Action: \{113: -1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122046654835205335039, ply\_count=1, locs=(55, None))
+Action: \{113: -1\}
+Player Id: 0
+Book State: Isolation(board=20753973769799811568561644759934975, ply\_count=2, locs=(114, 31))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 1
+Book State: Isolation(board=41522844291289065025333258048497663, ply\_count=1, locs=(98, None))
+Action: \{112: -1\}
+Player Id: 1
+Book State: Isolation(board=20753330040979383170818699362822143, ply\_count=3, locs=(99, 93))
+Action: \{<Action.ENE: 11>: -1\}
+Player Id: 1
+Book State: Isolation(board=20753973615057306657889110397544447, ply\_count=3, locs=(87, 31))
+Action: \{<Action.SSE: -27>: -1\}
+
+Round No. 18
+Player Id: 1
+Book State: Isolation(board=31138567482033763511135325848070143, ply\_count=3, locs=(82, 113))
+Action: \{<Action.SSW: -25>: -1\}
+Player Id: 1
+Book State: Isolation(board=41522527378639007967982883335825403, ply\_count=3, locs=(29, 99))
+Action: \{<Action.WNW: 15>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753968818039654427040547310921727, ply\_count=2, locs=(114, 92))
+Action: \{<Action.ESE: -15>: 1\}
+Player Id: 1
+Book State: Isolation(board=41442031564314999285562855338797055, ply\_count=3, locs=(69, 106))
+Action: \{<Action.ESE: -15>: 1\}
+Player Id: 1
+Book State: Isolation(board=36330547432744792663837022428850175, ply\_count=3, locs=(73, 112))
+Action: \{<Action.ESE: -15>: -1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082683632224299003, ply\_count=1, locs=(2, None))
+Action: \{99: -1\}
+Player Id: 1
+Book State: Isolation(board=20753973769799811568561646907418623, ply\_count=1, locs=(114, None))
+Action: \{65: -1, 101: 1, 31: -1, 92: -1, 93: -7, 85: -1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082402122885752831, ply\_count=3, locs=(48, 35))
+Action: \{<Action.SSW: -25>: -1\}
+Player Id: 1
+Book State: Isolation(board=20753334992739540312339798959319039, ply\_count=3, locs=(99, 92))
+Action: \{<Action.WNW: 15>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753973769799774675073499488315391, ply\_count=2, locs=(114, 65))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 0
+Book State: Isolation(board=36330547432754237396802761719277567, ply\_count=2, locs=(98, 112))
+Action: \{<Action.SSW: -25>: 1\}
+Player Id: 0
+Book State: Isolation(board=41522527378639007967982883872696315, ply\_count=2, locs=(2, 99))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 0
+Book State: Isolation(board=20751438468599355109758653501007871, ply\_count=2, locs=(114, 101))
+Action: \{<Action.ESE: -15>: -1\}
+Player Id: 0
+Book State: Isolation(board=41523161203939122082683632224299007, ply\_count=0, locs=(None, None))
+Action: \{80: -1, 2: 1, 114: 10, 55: 1, 60: 1, 98: 1, 21: 1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082683632222201855, ply\_count=1, locs=(21, None))
+Action: \{35: -1\}
+Player Id: 1
+Book State: Isolation(board=31138567332126960762028600596621311, ply\_count=3, locs=(87, 113))
+Action: \{<Action.SSW: -25>: -1\}
+Player Id: 0
+Book State: Isolation(board=31138567486869465672701134959011839, ply\_count=2, locs=(60, 113))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 0
+Book State: Isolation(board=31138567486869466789593842546894847, ply\_count=2, locs=(55, 113))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 1
+Book State: Isolation(board=20753963711536992374846913352034303, ply\_count=3, locs=(87, 93))
+Action: \{<Action.ENE: 11>: -6\}
+Player Id: 1
+Book State: Isolation(board=41523161202730196263069003049592831, ply\_count=1, locs=(80, None))
+Action: \{106: 1\}
+Player Id: 1
+Book State: Isolation(board=20753973615057269764400965125924863, ply\_count=3, locs=(87, 65))
+Action: \{<Action.NNW: 27>: -1\}
+Player Id: 1
+Book State: Isolation(board=20753973576371680430220978954430463, ply\_count=3, locs=(87, 85))
+Action: \{<Action.NNW: 27>: -1\}
+Player Id: 0
+Book State: Isolation(board=41523161203939122082683597862463487, ply\_count=2, locs=(21, 35))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 0
+Book State: Isolation(board=20753963866279497285519447714424831, ply\_count=2, locs=(114, 93))
+Action: \{<Action.ESE: -15>: 1, <Action.SSE: -27>: 6\}
+Player Id: 0
+Book State: Isolation(board=41442031564315589581373214044448767, ply\_count=2, locs=(80, 106))
+Action: \{<Action.WSW: -11>: -1\}
+Player Id: 1
+Book State: Isolation(board=20750804643299240995057905149405183, ply\_count=3, locs=(99, 101))
+Action: \{<Action.ENE: 11>: 1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939120929762127617452031, ply\_count=1, locs=(60, None))
+Action: \{113: -1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122046654835205335039, ply\_count=1, locs=(55, None))
+Action: \{113: -1\}
+Player Id: 0
+Book State: Isolation(board=20753973769799811568561644759934975, ply\_count=2, locs=(114, 31))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 1
+Book State: Isolation(board=41522844291289065025333258048497663, ply\_count=1, locs=(98, None))
+Action: \{112: -1\}
+Player Id: 1
+Book State: Isolation(board=20753330040979383170818699362822143, ply\_count=3, locs=(99, 93))
+Action: \{<Action.ENE: 11>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753973731114185340893513316820991, ply\_count=2, locs=(114, 85))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 1
+Book State: Isolation(board=20753973615057306657889110397544447, ply\_count=3, locs=(87, 31))
+Action: \{<Action.SSE: -27>: -1\}
+
+Round No. 19
+Player Id: 1
+Book State: Isolation(board=31138567482033763511135325848070143, ply\_count=3, locs=(82, 113))
+Action: \{<Action.SSW: -25>: -1\}
+Player Id: 1
+Book State: Isolation(board=41522527378639007967982883335825403, ply\_count=3, locs=(29, 99))
+Action: \{<Action.WNW: 15>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753968818039654427040547310921727, ply\_count=2, locs=(114, 92))
+Action: \{<Action.ESE: -15>: 1\}
+Player Id: 1
+Book State: Isolation(board=41442031564314999285562855338797055, ply\_count=3, locs=(69, 106))
+Action: \{<Action.ESE: -15>: 1\}
+Player Id: 1
+Book State: Isolation(board=36330547432744792663837022428850175, ply\_count=3, locs=(73, 112))
+Action: \{<Action.ESE: -15>: -1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082683632224299003, ply\_count=1, locs=(2, None))
+Action: \{99: -1\}
+Player Id: 1
+Book State: Isolation(board=20753973769799811568561646907418623, ply\_count=1, locs=(114, None))
+Action: \{65: -1, 101: 1, 31: -1, 27: -1, 92: -1, 93: -7, 85: -1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082402122885752831, ply\_count=3, locs=(48, 35))
+Action: \{<Action.SSW: -25>: -1\}
+Player Id: 1
+Book State: Isolation(board=20753334992739540312339798959319039, ply\_count=3, locs=(99, 92))
+Action: \{<Action.WNW: 15>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753973769799774675073499488315391, ply\_count=2, locs=(114, 65))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 0
+Book State: Isolation(board=36330547432754237396802761719277567, ply\_count=2, locs=(98, 112))
+Action: \{<Action.SSW: -25>: 1\}
+Player Id: 0
+Book State: Isolation(board=41522527378639007967982883872696315, ply\_count=2, locs=(2, 99))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 0
+Book State: Isolation(board=20751438468599355109758653501007871, ply\_count=2, locs=(114, 101))
+Action: \{<Action.ESE: -15>: -1\}
+Player Id: 0
+Book State: Isolation(board=41523161203939122082683632224299007, ply\_count=0, locs=(None, None))
+Action: \{80: -1, 2: 1, 114: 11, 55: 1, 60: 1, 98: 1, 21: 1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082683632222201855, ply\_count=1, locs=(21, None))
+Action: \{35: -1\}
+Player Id: 1
+Book State: Isolation(board=31138567332126960762028600596621311, ply\_count=3, locs=(87, 113))
+Action: \{<Action.SSW: -25>: -1\}
+Player Id: 0
+Book State: Isolation(board=31138567486869465672701134959011839, ply\_count=2, locs=(60, 113))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 0
+Book State: Isolation(board=20753973769799811568561646773200895, ply\_count=2, locs=(114, 27))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 0
+Book State: Isolation(board=31138567486869466789593842546894847, ply\_count=2, locs=(55, 113))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 1
+Book State: Isolation(board=20753963711536992374846913352034303, ply\_count=3, locs=(87, 93))
+Action: \{<Action.ENE: 11>: -6\}
+Player Id: 1
+Book State: Isolation(board=41523161202730196263069003049592831, ply\_count=1, locs=(80, None))
+Action: \{106: 1\}
+Player Id: 1
+Book State: Isolation(board=20753973615057306657889112410810367, ply\_count=3, locs=(87, 27))
+Action: \{<Action.SSE: -27>: -1\}
+Player Id: 1
+Book State: Isolation(board=20753973615057269764400965125924863, ply\_count=3, locs=(87, 65))
+Action: \{<Action.NNW: 27>: -1\}
+Player Id: 1
+Book State: Isolation(board=20753973576371680430220978954430463, ply\_count=3, locs=(87, 85))
+Action: \{<Action.NNW: 27>: -1\}
+Player Id: 0
+Book State: Isolation(board=41523161203939122082683597862463487, ply\_count=2, locs=(21, 35))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 0
+Book State: Isolation(board=20753963866279497285519447714424831, ply\_count=2, locs=(114, 93))
+Action: \{<Action.ESE: -15>: 1, <Action.SSE: -27>: 6\}
+Player Id: 0
+Book State: Isolation(board=41442031564315589581373214044448767, ply\_count=2, locs=(80, 106))
+Action: \{<Action.WSW: -11>: -1\}
+Player Id: 1
+Book State: Isolation(board=20750804643299240995057905149405183, ply\_count=3, locs=(99, 101))
+Action: \{<Action.ENE: 11>: 1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939120929762127617452031, ply\_count=1, locs=(60, None))
+Action: \{113: -1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122046654835205335039, ply\_count=1, locs=(55, None))
+Action: \{113: -1\}
+Player Id: 0
+Book State: Isolation(board=20753973769799811568561644759934975, ply\_count=2, locs=(114, 31))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 1
+Book State: Isolation(board=41522844291289065025333258048497663, ply\_count=1, locs=(98, None))
+Action: \{112: -1\}
+Player Id: 1
+Book State: Isolation(board=20753330040979383170818699362822143, ply\_count=3, locs=(99, 93))
+Action: \{<Action.ENE: 11>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753973731114185340893513316820991, ply\_count=2, locs=(114, 85))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 1
+Book State: Isolation(board=20753973615057306657889110397544447, ply\_count=3, locs=(87, 31))
+Action: \{<Action.SSE: -27>: -1\}
+
+Round No. 20
+Player Id: 1
+Book State: Isolation(board=31138567482033763511135325848070143, ply\_count=3, locs=(82, 113))
+Action: \{<Action.SSW: -25>: -1\}
+Player Id: 1
+Book State: Isolation(board=41522527378639007967982883335825403, ply\_count=3, locs=(29, 99))
+Action: \{<Action.WNW: 15>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753968818039654427040547310921727, ply\_count=2, locs=(114, 92))
+Action: \{<Action.ESE: -15>: 1\}
+Player Id: 1
+Book State: Isolation(board=41442031564314999285562855338797055, ply\_count=3, locs=(69, 106))
+Action: \{<Action.ESE: -15>: 1\}
+Player Id: 1
+Book State: Isolation(board=36330547432744792663837022428850175, ply\_count=3, locs=(73, 112))
+Action: \{<Action.ESE: -15>: -1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082683632224299003, ply\_count=1, locs=(2, None))
+Action: \{99: -1\}
+Player Id: 1
+Book State: Isolation(board=20753973769799811568561646907418623, ply\_count=1, locs=(114, None))
+Action: \{65: -1, 101: 1, 31: -1, 27: -1, 92: -1, 93: -8, 85: -1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082402122885752831, ply\_count=3, locs=(48, 35))
+Action: \{<Action.SSW: -25>: -1\}
+Player Id: 1
+Book State: Isolation(board=20753334992739540312339798959319039, ply\_count=3, locs=(99, 92))
+Action: \{<Action.WNW: 15>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753973769799774675073499488315391, ply\_count=2, locs=(114, 65))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 0
+Book State: Isolation(board=36330547432754237396802761719277567, ply\_count=2, locs=(98, 112))
+Action: \{<Action.SSW: -25>: 1\}
+Player Id: 0
+Book State: Isolation(board=41522527378639007967982883872696315, ply\_count=2, locs=(2, 99))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 0
+Book State: Isolation(board=20751438468599355109758653501007871, ply\_count=2, locs=(114, 101))
+Action: \{<Action.ESE: -15>: -1\}
+Player Id: 0
+Book State: Isolation(board=41523161203939122082683632224299007, ply\_count=0, locs=(None, None))
+Action: \{80: -1, 2: 1, 114: 12, 55: 1, 60: 1, 98: 1, 21: 1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082683632222201855, ply\_count=1, locs=(21, None))
+Action: \{35: -1\}
+Player Id: 1
+Book State: Isolation(board=31138567332126960762028600596621311, ply\_count=3, locs=(87, 113))
+Action: \{<Action.SSW: -25>: -1\}
+Player Id: 0
+Book State: Isolation(board=31138567486869465672701134959011839, ply\_count=2, locs=(60, 113))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 0
+Book State: Isolation(board=20753973769799811568561646773200895, ply\_count=2, locs=(114, 27))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 0
+Book State: Isolation(board=31138567486869466789593842546894847, ply\_count=2, locs=(55, 113))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 1
+Book State: Isolation(board=20753963711536992374846913352034303, ply\_count=3, locs=(87, 93))
+Action: \{<Action.ENE: 11>: -6\}
+Player Id: 1
+Book State: Isolation(board=41523161202730196263069003049592831, ply\_count=1, locs=(80, None))
+Action: \{106: 1\}
+Player Id: 1
+Book State: Isolation(board=20753973615057306657889112410810367, ply\_count=3, locs=(87, 27))
+Action: \{<Action.SSE: -27>: -1\}
+Player Id: 1
+Book State: Isolation(board=20753973615057269764400965125924863, ply\_count=3, locs=(87, 65))
+Action: \{<Action.NNW: 27>: -1\}
+Player Id: 1
+Book State: Isolation(board=20753973576371680430220978954430463, ply\_count=3, locs=(87, 85))
+Action: \{<Action.NNW: 27>: -1\}
+Player Id: 0
+Book State: Isolation(board=41523161203939122082683597862463487, ply\_count=2, locs=(21, 35))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 0
+Book State: Isolation(board=20753963866279497285519447714424831, ply\_count=2, locs=(114, 93))
+Action: \{<Action.ESE: -15>: 2, <Action.SSE: -27>: 6\}
+Player Id: 0
+Book State: Isolation(board=41442031564315589581373214044448767, ply\_count=2, locs=(80, 106))
+Action: \{<Action.WSW: -11>: -1\}
+Player Id: 1
+Book State: Isolation(board=20750804643299240995057905149405183, ply\_count=3, locs=(99, 101))
+Action: \{<Action.ENE: 11>: 1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939120929762127617452031, ply\_count=1, locs=(60, None))
+Action: \{113: -1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122046654835205335039, ply\_count=1, locs=(55, None))
+Action: \{113: -1\}
+Player Id: 0
+Book State: Isolation(board=20753973769799811568561644759934975, ply\_count=2, locs=(114, 31))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 1
+Book State: Isolation(board=41522844291289065025333258048497663, ply\_count=1, locs=(98, None))
+Action: \{112: -1\}
+Player Id: 1
+Book State: Isolation(board=20753330040979383170818699362822143, ply\_count=3, locs=(99, 93))
+Action: \{<Action.ENE: 11>: -1, <Action.SSW: -25>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753973731114185340893513316820991, ply\_count=2, locs=(114, 85))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 1
+Book State: Isolation(board=20753973615057306657889110397544447, ply\_count=3, locs=(87, 31))
+Action: \{<Action.SSE: -27>: -1\}
+
+Round No. 21
+Player Id: 1
+Book State: Isolation(board=31138567482033763511135325848070143, ply\_count=3, locs=(82, 113))
+Action: \{<Action.SSW: -25>: -1\}
+Player Id: 1
+Book State: Isolation(board=41522527378639007967982883335825403, ply\_count=3, locs=(29, 99))
+Action: \{<Action.WNW: 15>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753968818039654427040547310921727, ply\_count=2, locs=(114, 92))
+Action: \{<Action.ESE: -15>: 1\}
+Player Id: 1
+Book State: Isolation(board=41442031564314999285562855338797055, ply\_count=3, locs=(69, 106))
+Action: \{<Action.ESE: -15>: 1\}
+Player Id: 1
+Book State: Isolation(board=36330547432744792663837022428850175, ply\_count=3, locs=(73, 112))
+Action: \{<Action.ESE: -15>: -1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082683632224299003, ply\_count=1, locs=(2, None))
+Action: \{99: -1\}
+Player Id: 1
+Book State: Isolation(board=20753973769799811568561646907418623, ply\_count=1, locs=(114, None))
+Action: \{65: -1, 101: 1, 31: -1, 27: -1, 92: -1, 93: -9, 85: -1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082402122885752831, ply\_count=3, locs=(48, 35))
+Action: \{<Action.SSW: -25>: -1\}
+Player Id: 1
+Book State: Isolation(board=20753334992739540312339798959319039, ply\_count=3, locs=(99, 92))
+Action: \{<Action.WNW: 15>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753973769799774675073499488315391, ply\_count=2, locs=(114, 65))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 0
+Book State: Isolation(board=36330547432754237396802761719277567, ply\_count=2, locs=(98, 112))
+Action: \{<Action.SSW: -25>: 1\}
+Player Id: 0
+Book State: Isolation(board=41522527378639007967982883872696315, ply\_count=2, locs=(2, 99))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 0
+Book State: Isolation(board=20751438468599355109758653501007871, ply\_count=2, locs=(114, 101))
+Action: \{<Action.ESE: -15>: -1\}
+Player Id: 0
+Book State: Isolation(board=41523161203939122082683632224299007, ply\_count=0, locs=(None, None))
+Action: \{80: -1, 2: 1, 114: 13, 55: 1, 60: 1, 98: 1, 21: 1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082683632222201855, ply\_count=1, locs=(21, None))
+Action: \{35: -1\}
+Player Id: 1
+Book State: Isolation(board=31138567332126960762028600596621311, ply\_count=3, locs=(87, 113))
+Action: \{<Action.SSW: -25>: -1\}
+Player Id: 0
+Book State: Isolation(board=31138567486869465672701134959011839, ply\_count=2, locs=(60, 113))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 0
+Book State: Isolation(board=20753973769799811568561646773200895, ply\_count=2, locs=(114, 27))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 0
+Book State: Isolation(board=31138567486869466789593842546894847, ply\_count=2, locs=(55, 113))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 1
+Book State: Isolation(board=20753963711536992374846913352034303, ply\_count=3, locs=(87, 93))
+Action: \{<Action.ENE: 11>: -6\}
+Player Id: 1
+Book State: Isolation(board=41523161202730196263069003049592831, ply\_count=1, locs=(80, None))
+Action: \{106: 1\}
+Player Id: 1
+Book State: Isolation(board=20753973615057306657889112410810367, ply\_count=3, locs=(87, 27))
+Action: \{<Action.SSE: -27>: -1\}
+Player Id: 1
+Book State: Isolation(board=20753973615057269764400965125924863, ply\_count=3, locs=(87, 65))
+Action: \{<Action.NNW: 27>: -1\}
+Player Id: 1
+Book State: Isolation(board=20753973576371680430220978954430463, ply\_count=3, locs=(87, 85))
+Action: \{<Action.NNW: 27>: -1\}
+Player Id: 0
+Book State: Isolation(board=41523161203939122082683597862463487, ply\_count=2, locs=(21, 35))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 0
+Book State: Isolation(board=20753963866279497285519447714424831, ply\_count=2, locs=(114, 93))
+Action: \{<Action.ESE: -15>: 3, <Action.SSE: -27>: 6\}
+Player Id: 0
+Book State: Isolation(board=41442031564315589581373214044448767, ply\_count=2, locs=(80, 106))
+Action: \{<Action.WSW: -11>: -1\}
+Player Id: 1
+Book State: Isolation(board=20750804643299240995057905149405183, ply\_count=3, locs=(99, 101))
+Action: \{<Action.ENE: 11>: 1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939120929762127617452031, ply\_count=1, locs=(60, None))
+Action: \{113: -1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122046654835205335039, ply\_count=1, locs=(55, None))
+Action: \{113: -1\}
+Player Id: 0
+Book State: Isolation(board=20753973769799811568561644759934975, ply\_count=2, locs=(114, 31))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 1
+Book State: Isolation(board=41522844291289065025333258048497663, ply\_count=1, locs=(98, None))
+Action: \{112: -1\}
+Player Id: 1
+Book State: Isolation(board=20753330040979383170818699362822143, ply\_count=3, locs=(99, 93))
+Action: \{<Action.ENE: 11>: -2, <Action.SSW: -25>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753973731114185340893513316820991, ply\_count=2, locs=(114, 85))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 1
+Book State: Isolation(board=20753973615057306657889110397544447, ply\_count=3, locs=(87, 31))
+Action: \{<Action.SSE: -27>: -1\}
+
+Round No. 22
+Player Id: 1
+Book State: Isolation(board=31138567482033763511135325848070143, ply\_count=3, locs=(82, 113))
+Action: \{<Action.SSW: -25>: -1\}
+Player Id: 1
+Book State: Isolation(board=41522527378639007967982883335825403, ply\_count=3, locs=(29, 99))
+Action: \{<Action.WNW: 15>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753968818039654427040547310921727, ply\_count=2, locs=(114, 92))
+Action: \{<Action.ESE: -15>: 1\}
+Player Id: 1
+Book State: Isolation(board=41442031564314999285562855338797055, ply\_count=3, locs=(69, 106))
+Action: \{<Action.ESE: -15>: 1\}
+Player Id: 1
+Book State: Isolation(board=36330547432744792663837022428850175, ply\_count=3, locs=(73, 112))
+Action: \{<Action.ESE: -15>: -1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082683632224299003, ply\_count=1, locs=(2, None))
+Action: \{99: -1\}
+Player Id: 1
+Book State: Isolation(board=20753973769799811568561646907418623, ply\_count=1, locs=(114, None))
+Action: \{65: -1, 101: 1, 31: -1, 27: -1, 92: -1, 93: -9, 85: -1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082402122885752831, ply\_count=3, locs=(48, 35))
+Action: \{<Action.SSW: -25>: -1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082683632224233471, ply\_count=1, locs=(16, None))
+Action: \{99: -1\}
+Player Id: 1
+Book State: Isolation(board=20753334992739540312339798959319039, ply\_count=3, locs=(99, 92))
+Action: \{<Action.WNW: 15>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753973769799774675073499488315391, ply\_count=2, locs=(114, 65))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 0
+Book State: Isolation(board=36330547432754237396802761719277567, ply\_count=2, locs=(98, 112))
+Action: \{<Action.SSW: -25>: 1\}
+Player Id: 0
+Book State: Isolation(board=41522527378639007967982883872696315, ply\_count=2, locs=(2, 99))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 0
+Book State: Isolation(board=20751438468599355109758653501007871, ply\_count=2, locs=(114, 101))
+Action: \{<Action.ESE: -15>: -1\}
+Player Id: 0
+Book State: Isolation(board=41523161203939122082683632224299007, ply\_count=0, locs=(None, None))
+Action: \{16: 1, 2: 1, 98: 1, 80: -1, 114: 13, 21: 1, 55: 1, 60: 1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082683632222201855, ply\_count=1, locs=(21, None))
+Action: \{35: -1\}
+Player Id: 1
+Book State: Isolation(board=31138567332126960762028600596621311, ply\_count=3, locs=(87, 113))
+Action: \{<Action.SSW: -25>: -1\}
+Player Id: 0
+Book State: Isolation(board=31138567486869465672701134959011839, ply\_count=2, locs=(60, 113))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 0
+Book State: Isolation(board=20753973769799811568561646773200895, ply\_count=2, locs=(114, 27))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 0
+Book State: Isolation(board=31138567486869466789593842546894847, ply\_count=2, locs=(55, 113))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 1
+Book State: Isolation(board=20753963711536992374846913352034303, ply\_count=3, locs=(87, 93))
+Action: \{<Action.ENE: 11>: -6\}
+Player Id: 1
+Book State: Isolation(board=41523161202730196263069003049592831, ply\_count=1, locs=(80, None))
+Action: \{106: 1\}
+Player Id: 1
+Book State: Isolation(board=20753973615057306657889112410810367, ply\_count=3, locs=(87, 27))
+Action: \{<Action.SSE: -27>: -1\}
+Player Id: 1
+Book State: Isolation(board=20753973615057269764400965125924863, ply\_count=3, locs=(87, 65))
+Action: \{<Action.NNW: 27>: -1\}
+Player Id: 1
+Book State: Isolation(board=20753973576371680430220978954430463, ply\_count=3, locs=(87, 85))
+Action: \{<Action.NNW: 27>: -1\}
+Player Id: 0
+Book State: Isolation(board=41523161203939122082683597862463487, ply\_count=2, locs=(21, 35))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 1
+Book State: Isolation(board=41522527378639007967980684849375231, ply\_count=3, locs=(41, 99))
+Action: \{<Action.ENE: 11>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753963866279497285519447714424831, ply\_count=2, locs=(114, 93))
+Action: \{<Action.ESE: -15>: 3, <Action.SSE: -27>: 6\}
+Player Id: 0
+Book State: Isolation(board=41442031564315589581373214044448767, ply\_count=2, locs=(80, 106))
+Action: \{<Action.WSW: -11>: -1\}
+Player Id: 1
+Book State: Isolation(board=20750804643299240995057905149405183, ply\_count=3, locs=(99, 101))
+Action: \{<Action.ENE: 11>: 1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939120929762127617452031, ply\_count=1, locs=(60, None))
+Action: \{113: -1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122046654835205335039, ply\_count=1, locs=(55, None))
+Action: \{113: -1\}
+Player Id: 0
+Book State: Isolation(board=20753973769799811568561644759934975, ply\_count=2, locs=(114, 31))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 0
+Book State: Isolation(board=41522527378639007967982883872630783, ply\_count=2, locs=(16, 99))
+Action: \{<Action.NNE: 25>: 1\}
+Player Id: 1
+Book State: Isolation(board=41522844291289065025333258048497663, ply\_count=1, locs=(98, None))
+Action: \{112: -1\}
+Player Id: 1
+Book State: Isolation(board=20753330040979383170818699362822143, ply\_count=3, locs=(99, 93))
+Action: \{<Action.ENE: 11>: -2, <Action.SSW: -25>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753973731114185340893513316820991, ply\_count=2, locs=(114, 85))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 1
+Book State: Isolation(board=20753973615057306657889110397544447, ply\_count=3, locs=(87, 31))
+Action: \{<Action.SSE: -27>: -1\}
+
+Round No. 23
+Player Id: 1
+Book State: Isolation(board=31138567482033763511135325848070143, ply\_count=3, locs=(82, 113))
+Action: \{<Action.SSW: -25>: -1\}
+Player Id: 1
+Book State: Isolation(board=41522527378639007967982883335825403, ply\_count=3, locs=(29, 99))
+Action: \{<Action.WNW: 15>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753968818039654427040547310921727, ply\_count=2, locs=(114, 92))
+Action: \{<Action.ESE: -15>: 1\}
+Player Id: 1
+Book State: Isolation(board=41442031564314999285562855338797055, ply\_count=3, locs=(69, 106))
+Action: \{<Action.ESE: -15>: 1\}
+Player Id: 1
+Book State: Isolation(board=36330547432744792663837022428850175, ply\_count=3, locs=(73, 112))
+Action: \{<Action.ESE: -15>: -1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082683632224299003, ply\_count=1, locs=(2, None))
+Action: \{99: -1\}
+Player Id: 1
+Book State: Isolation(board=20753973769799811568561646907418623, ply\_count=1, locs=(114, None))
+Action: \{65: -1, 101: 1, 31: -1, 27: -1, 92: -1, 93: -10, 85: -1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082402122885752831, ply\_count=3, locs=(48, 35))
+Action: \{<Action.SSW: -25>: -1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082683632224233471, ply\_count=1, locs=(16, None))
+Action: \{99: -1\}
+Player Id: 1
+Book State: Isolation(board=20753334992739540312339798959319039, ply\_count=3, locs=(99, 92))
+Action: \{<Action.WNW: 15>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753973769799774675073499488315391, ply\_count=2, locs=(114, 65))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 0
+Book State: Isolation(board=36330547432754237396802761719277567, ply\_count=2, locs=(98, 112))
+Action: \{<Action.SSW: -25>: 1\}
+Player Id: 0
+Book State: Isolation(board=41522527378639007967982883872696315, ply\_count=2, locs=(2, 99))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 0
+Book State: Isolation(board=20751438468599355109758653501007871, ply\_count=2, locs=(114, 101))
+Action: \{<Action.ESE: -15>: -1\}
+Player Id: 0
+Book State: Isolation(board=41523161203939122082683632224299007, ply\_count=0, locs=(None, None))
+Action: \{16: 1, 2: 1, 98: 1, 80: -1, 114: 14, 21: 1, 55: 1, 60: 1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082683632222201855, ply\_count=1, locs=(21, None))
+Action: \{35: -1\}
+Player Id: 1
+Book State: Isolation(board=31138567332126960762028600596621311, ply\_count=3, locs=(87, 113))
+Action: \{<Action.SSW: -25>: -1\}
+Player Id: 0
+Book State: Isolation(board=31138567486869465672701134959011839, ply\_count=2, locs=(60, 113))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 0
+Book State: Isolation(board=20753973769799811568561646773200895, ply\_count=2, locs=(114, 27))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 0
+Book State: Isolation(board=31138567486869466789593842546894847, ply\_count=2, locs=(55, 113))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 1
+Book State: Isolation(board=20753963711536992374846913352034303, ply\_count=3, locs=(87, 93))
+Action: \{<Action.ENE: 11>: -7\}
+Player Id: 1
+Book State: Isolation(board=41523161202730196263069003049592831, ply\_count=1, locs=(80, None))
+Action: \{106: 1\}
+Player Id: 1
+Book State: Isolation(board=20753973615057306657889112410810367, ply\_count=3, locs=(87, 27))
+Action: \{<Action.SSE: -27>: -1\}
+Player Id: 1
+Book State: Isolation(board=20753973615057269764400965125924863, ply\_count=3, locs=(87, 65))
+Action: \{<Action.NNW: 27>: -1\}
+Player Id: 1
+Book State: Isolation(board=20753973576371680430220978954430463, ply\_count=3, locs=(87, 85))
+Action: \{<Action.NNW: 27>: -1\}
+Player Id: 0
+Book State: Isolation(board=41523161203939122082683597862463487, ply\_count=2, locs=(21, 35))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 1
+Book State: Isolation(board=41522527378639007967980684849375231, ply\_count=3, locs=(41, 99))
+Action: \{<Action.ENE: 11>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753963866279497285519447714424831, ply\_count=2, locs=(114, 93))
+Action: \{<Action.ESE: -15>: 3, <Action.SSE: -27>: 7\}
+Player Id: 0
+Book State: Isolation(board=41442031564315589581373214044448767, ply\_count=2, locs=(80, 106))
+Action: \{<Action.WSW: -11>: -1\}
+Player Id: 1
+Book State: Isolation(board=20750804643299240995057905149405183, ply\_count=3, locs=(99, 101))
+Action: \{<Action.ENE: 11>: 1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939120929762127617452031, ply\_count=1, locs=(60, None))
+Action: \{113: -1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122046654835205335039, ply\_count=1, locs=(55, None))
+Action: \{113: -1\}
+Player Id: 0
+Book State: Isolation(board=20753973769799811568561644759934975, ply\_count=2, locs=(114, 31))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 0
+Book State: Isolation(board=41522527378639007967982883872630783, ply\_count=2, locs=(16, 99))
+Action: \{<Action.NNE: 25>: 1\}
+Player Id: 1
+Book State: Isolation(board=41522844291289065025333258048497663, ply\_count=1, locs=(98, None))
+Action: \{112: -1\}
+Player Id: 1
+Book State: Isolation(board=20753330040979383170818699362822143, ply\_count=3, locs=(99, 93))
+Action: \{<Action.ENE: 11>: -2, <Action.SSW: -25>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753973731114185340893513316820991, ply\_count=2, locs=(114, 85))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 1
+Book State: Isolation(board=20753973615057306657889110397544447, ply\_count=3, locs=(87, 31))
+Action: \{<Action.SSE: -27>: -1\}
+
+Round No. 24
+Player Id: 1
+Book State: Isolation(board=31138567482033763511135325848070143, ply\_count=3, locs=(82, 113))
+Action: \{<Action.SSW: -25>: -1\}
+Player Id: 1
+Book State: Isolation(board=41522527378639007967982883335825403, ply\_count=3, locs=(29, 99))
+Action: \{<Action.WNW: 15>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753968818039654427040547310921727, ply\_count=2, locs=(114, 92))
+Action: \{<Action.ESE: -15>: 1\}
+Player Id: 1
+Book State: Isolation(board=41442031564314999285562855338797055, ply\_count=3, locs=(69, 106))
+Action: \{<Action.ESE: -15>: 1\}
+Player Id: 1
+Book State: Isolation(board=36330547432744792663837022428850175, ply\_count=3, locs=(73, 112))
+Action: \{<Action.ESE: -15>: -1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082683632224299003, ply\_count=1, locs=(2, None))
+Action: \{99: -1\}
+Player Id: 1
+Book State: Isolation(board=20753973769799811568561646907418623, ply\_count=1, locs=(114, None))
+Action: \{65: -1, 101: 1, 31: -1, 27: -1, 92: -1, 93: -10, 85: -1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082402122885752831, ply\_count=3, locs=(48, 35))
+Action: \{<Action.SSW: -25>: -1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082683632224233471, ply\_count=1, locs=(16, None))
+Action: \{99: -1\}
+Player Id: 1
+Book State: Isolation(board=20753334992739540312339798959319039, ply\_count=3, locs=(99, 92))
+Action: \{<Action.WNW: 15>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753973769799774675073499488315391, ply\_count=2, locs=(114, 65))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 0
+Book State: Isolation(board=36330547432754237396802761719277567, ply\_count=2, locs=(98, 112))
+Action: \{<Action.SSW: -25>: 1\}
+Player Id: 0
+Book State: Isolation(board=41522527378639007967982883872696315, ply\_count=2, locs=(2, 99))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 0
+Book State: Isolation(board=20751438468599355109758653501007871, ply\_count=2, locs=(114, 101))
+Action: \{<Action.ESE: -15>: -1\}
+Player Id: 0
+Book State: Isolation(board=41523161203939122082683632224299007, ply\_count=0, locs=(None, None))
+Action: \{16: 1, 2: 1, 98: 1, 45: 1, 80: -1, 114: 14, 21: 1, 55: 1, 60: 1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082683632222201855, ply\_count=1, locs=(21, None))
+Action: \{35: -1\}
+Player Id: 1
+Book State: Isolation(board=31138567332126960762028600596621311, ply\_count=3, locs=(87, 113))
+Action: \{<Action.SSW: -25>: -1\}
+Player Id: 0
+Book State: Isolation(board=31138567486869465672701134959011839, ply\_count=2, locs=(60, 113))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 0
+Book State: Isolation(board=20753973769799811568561646773200895, ply\_count=2, locs=(114, 27))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 0
+Book State: Isolation(board=31138567486869466789593842546894847, ply\_count=2, locs=(55, 113))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 1
+Book State: Isolation(board=31138567486864744459104585548556287, ply\_count=3, locs=(72, 113))
+Action: \{<Action.SSE: -27>: -1\}
+Player Id: 1
+Book State: Isolation(board=20753963711536992374846913352034303, ply\_count=3, locs=(87, 93))
+Action: \{<Action.ENE: 11>: -7\}
+Player Id: 1
+Book State: Isolation(board=41523161202730196263069003049592831, ply\_count=1, locs=(80, None))
+Action: \{106: 1\}
+Player Id: 1
+Book State: Isolation(board=20753973615057306657889112410810367, ply\_count=3, locs=(87, 27))
+Action: \{<Action.SSE: -27>: -1\}
+Player Id: 0
+Book State: Isolation(board=31138567486869466825587455193769983, ply\_count=2, locs=(45, 113))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 1
+Book State: Isolation(board=20753973615057269764400965125924863, ply\_count=3, locs=(87, 65))
+Action: \{<Action.NNW: 27>: -1\}
+Player Id: 1
+Book State: Isolation(board=20753973576371680430220978954430463, ply\_count=3, locs=(87, 85))
+Action: \{<Action.NNW: 27>: -1\}
+Player Id: 0
+Book State: Isolation(board=41523161203939122082683597862463487, ply\_count=2, locs=(21, 35))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 1
+Book State: Isolation(board=41522527378639007967980684849375231, ply\_count=3, locs=(41, 99))
+Action: \{<Action.ENE: 11>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753963866279497285519447714424831, ply\_count=2, locs=(114, 93))
+Action: \{<Action.ESE: -15>: 3, <Action.SSE: -27>: 7\}
+Player Id: 0
+Book State: Isolation(board=41442031564315589581373214044448767, ply\_count=2, locs=(80, 106))
+Action: \{<Action.WSW: -11>: -1\}
+Player Id: 1
+Book State: Isolation(board=20750804643299240995057905149405183, ply\_count=3, locs=(99, 101))
+Action: \{<Action.ENE: 11>: 1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939120929762127617452031, ply\_count=1, locs=(60, None))
+Action: \{113: -1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082648447852210175, ply\_count=1, locs=(45, None))
+Action: \{113: -1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122046654835205335039, ply\_count=1, locs=(55, None))
+Action: \{113: -1\}
+Player Id: 0
+Book State: Isolation(board=20753973769799811568561644759934975, ply\_count=2, locs=(114, 31))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 0
+Book State: Isolation(board=41522527378639007967982883872630783, ply\_count=2, locs=(16, 99))
+Action: \{<Action.NNE: 25>: 1\}
+Player Id: 1
+Book State: Isolation(board=41522844291289065025333258048497663, ply\_count=1, locs=(98, None))
+Action: \{112: -1\}
+Player Id: 1
+Book State: Isolation(board=20753330040979383170818699362822143, ply\_count=3, locs=(99, 93))
+Action: \{<Action.ENE: 11>: -2, <Action.SSW: -25>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753973731114185340893513316820991, ply\_count=2, locs=(114, 85))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 1
+Book State: Isolation(board=20753973615057306657889110397544447, ply\_count=3, locs=(87, 31))
+Action: \{<Action.SSE: -27>: -1\}
+
+Round No. 25
+Player Id: 1
+Book State: Isolation(board=31138567482033763511135325848070143, ply\_count=3, locs=(82, 113))
+Action: \{<Action.SSW: -25>: -1\}
+Player Id: 1
+Book State: Isolation(board=41522527378639007967982883335825403, ply\_count=3, locs=(29, 99))
+Action: \{<Action.WNW: 15>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753968818039654427040547310921727, ply\_count=2, locs=(114, 92))
+Action: \{<Action.ESE: -15>: 1\}
+Player Id: 1
+Book State: Isolation(board=41442031564314999285562855338797055, ply\_count=3, locs=(69, 106))
+Action: \{<Action.ESE: -15>: 1\}
+Player Id: 1
+Book State: Isolation(board=36330547432744792663837022428850175, ply\_count=3, locs=(73, 112))
+Action: \{<Action.ESE: -15>: -1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082683632224299003, ply\_count=1, locs=(2, None))
+Action: \{99: -1\}
+Player Id: 1
+Book State: Isolation(board=20753973769799811568561646907418623, ply\_count=1, locs=(114, None))
+Action: \{65: -1, 101: 1, 31: -1, 27: -1, 92: -1, 93: -11, 85: -1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082402122885752831, ply\_count=3, locs=(48, 35))
+Action: \{<Action.SSW: -25>: -1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082683632224233471, ply\_count=1, locs=(16, None))
+Action: \{99: -1\}
+Player Id: 1
+Book State: Isolation(board=20753334992739540312339798959319039, ply\_count=3, locs=(99, 92))
+Action: \{<Action.WNW: 15>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753973769799774675073499488315391, ply\_count=2, locs=(114, 65))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 0
+Book State: Isolation(board=36330547432754237396802761719277567, ply\_count=2, locs=(98, 112))
+Action: \{<Action.SSW: -25>: 1\}
+Player Id: 0
+Book State: Isolation(board=41522527378639007967982883872696315, ply\_count=2, locs=(2, 99))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 0
+Book State: Isolation(board=20751438468599355109758653501007871, ply\_count=2, locs=(114, 101))
+Action: \{<Action.ESE: -15>: -1\}
+Player Id: 0
+Book State: Isolation(board=41523161203939122082683632224299007, ply\_count=0, locs=(None, None))
+Action: \{16: 1, 2: 1, 98: 1, 45: 1, 80: -1, 114: 15, 21: 1, 55: 1, 60: 1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082683632222201855, ply\_count=1, locs=(21, None))
+Action: \{35: -1\}
+Player Id: 1
+Book State: Isolation(board=31138567332126960762028600596621311, ply\_count=3, locs=(87, 113))
+Action: \{<Action.SSW: -25>: -1\}
+Player Id: 0
+Book State: Isolation(board=31138567486869465672701134959011839, ply\_count=2, locs=(60, 113))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 0
+Book State: Isolation(board=20753973769799811568561646773200895, ply\_count=2, locs=(114, 27))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 0
+Book State: Isolation(board=31138567486869466789593842546894847, ply\_count=2, locs=(55, 113))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 1
+Book State: Isolation(board=31138567486864744459104585548556287, ply\_count=3, locs=(72, 113))
+Action: \{<Action.SSE: -27>: -1\}
+Player Id: 1
+Book State: Isolation(board=20753963711536992374846913352034303, ply\_count=3, locs=(87, 93))
+Action: \{<Action.ENE: 11>: -8\}
+Player Id: 1
+Book State: Isolation(board=41523161202730196263069003049592831, ply\_count=1, locs=(80, None))
+Action: \{106: 1\}
+Player Id: 1
+Book State: Isolation(board=20753973615057306657889112410810367, ply\_count=3, locs=(87, 27))
+Action: \{<Action.SSE: -27>: -1\}
+Player Id: 0
+Book State: Isolation(board=31138567486869466825587455193769983, ply\_count=2, locs=(45, 113))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 1
+Book State: Isolation(board=20753973615057269764400965125924863, ply\_count=3, locs=(87, 65))
+Action: \{<Action.NNW: 27>: -1\}
+Player Id: 1
+Book State: Isolation(board=20753973576371680430220978954430463, ply\_count=3, locs=(87, 85))
+Action: \{<Action.NNW: 27>: -1\}
+Player Id: 0
+Book State: Isolation(board=41523161203939122082683597862463487, ply\_count=2, locs=(21, 35))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 1
+Book State: Isolation(board=41522527378639007967980684849375231, ply\_count=3, locs=(41, 99))
+Action: \{<Action.ENE: 11>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753963866279497285519447714424831, ply\_count=2, locs=(114, 93))
+Action: \{<Action.ESE: -15>: 3, <Action.SSE: -27>: 8\}
+Player Id: 0
+Book State: Isolation(board=41442031564315589581373214044448767, ply\_count=2, locs=(80, 106))
+Action: \{<Action.WSW: -11>: -1\}
+Player Id: 1
+Book State: Isolation(board=20750804643299240995057905149405183, ply\_count=3, locs=(99, 101))
+Action: \{<Action.ENE: 11>: 1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939120929762127617452031, ply\_count=1, locs=(60, None))
+Action: \{113: -1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082648447852210175, ply\_count=1, locs=(45, None))
+Action: \{113: -1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122046654835205335039, ply\_count=1, locs=(55, None))
+Action: \{113: -1\}
+Player Id: 0
+Book State: Isolation(board=20753973769799811568561644759934975, ply\_count=2, locs=(114, 31))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 0
+Book State: Isolation(board=41522527378639007967982883872630783, ply\_count=2, locs=(16, 99))
+Action: \{<Action.NNE: 25>: 1\}
+Player Id: 1
+Book State: Isolation(board=41522844291289065025333258048497663, ply\_count=1, locs=(98, None))
+Action: \{112: -1\}
+Player Id: 1
+Book State: Isolation(board=20753330040979383170818699362822143, ply\_count=3, locs=(99, 93))
+Action: \{<Action.ENE: 11>: -2, <Action.SSW: -25>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753973731114185340893513316820991, ply\_count=2, locs=(114, 85))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 1
+Book State: Isolation(board=20753973615057306657889110397544447, ply\_count=3, locs=(87, 31))
+Action: \{<Action.SSE: -27>: -1\}
+
+Round No. 26
+Player Id: 1
+Book State: Isolation(board=41522527378639007967982883335825403, ply\_count=3, locs=(29, 99))
+Action: \{<Action.WNW: 15>: -1\}
+Player Id: 0
+Book State: Isolation(board=41522527378639007967982883872696315, ply\_count=2, locs=(2, 99))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082683632224167935, ply\_count=1, locs=(17, None))
+Action: \{114: -1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082402122885752831, ply\_count=3, locs=(48, 35))
+Action: \{<Action.SSW: -25>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753973769799811568561646907287551, ply\_count=2, locs=(17, 114))
+Action: \{<Action.NNE: 25>: 1\}
+Player Id: 1
+Book State: Isolation(board=20753334992739540312339798959319039, ply\_count=3, locs=(99, 92))
+Action: \{<Action.WNW: 15>: -1\}
+Player Id: 0
+Book State: Isolation(board=36330547432754237396802761719277567, ply\_count=2, locs=(98, 112))
+Action: \{<Action.SSW: -25>: 1\}
+Player Id: 1
+Book State: Isolation(board=31138567332126960762028600596621311, ply\_count=3, locs=(87, 113))
+Action: \{<Action.SSW: -25>: -1\}
+Player Id: 1
+Book State: Isolation(board=20753973769799811568557248860776447, ply\_count=3, locs=(42, 114))
+Action: \{<Action.SSE: -27>: -1\}
+Player Id: 1
+Book State: Isolation(board=41522527378639007967980684849375231, ply\_count=3, locs=(41, 99))
+Action: \{<Action.ENE: 11>: -1\}
+Player Id: 1
+Book State: Isolation(board=41523161202730196263069003049592831, ply\_count=1, locs=(80, None))
+Action: \{106: 1\}
+Player Id: 1
+Book State: Isolation(board=20753973615057306657889112410810367, ply\_count=3, locs=(87, 27))
+Action: \{<Action.SSE: -27>: -1\}
+Player Id: 0
+Book State: Isolation(board=31138567486869466825587455193769983, ply\_count=2, locs=(45, 113))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 1
+Book State: Isolation(board=20753973615057269764400965125924863, ply\_count=3, locs=(87, 65))
+Action: \{<Action.NNW: 27>: -1\}
+Player Id: 1
+Book State: Isolation(board=20753973576371680430220978954430463, ply\_count=3, locs=(87, 85))
+Action: \{<Action.NNW: 27>: -1\}
+Player Id: 0
+Book State: Isolation(board=41523161203939122082683597862463487, ply\_count=2, locs=(21, 35))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 0
+Book State: Isolation(board=41442031564315589581373214044448767, ply\_count=2, locs=(80, 106))
+Action: \{<Action.WSW: -11>: -1\}
+Player Id: 1
+Book State: Isolation(board=20750804643299240995057905149405183, ply\_count=3, locs=(99, 101))
+Action: \{<Action.ENE: 11>: 1\}
+Player Id: 0
+Book State: Isolation(board=20753973769799811568561644759934975, ply\_count=2, locs=(114, 31))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 1
+Book State: Isolation(board=41522844291289065025333258048497663, ply\_count=1, locs=(98, None))
+Action: \{112: -1\}
+Player Id: 1
+Book State: Isolation(board=20753973615057306657889110397544447, ply\_count=3, locs=(87, 31))
+Action: \{<Action.SSE: -27>: -1\}
+Player Id: 1
+Book State: Isolation(board=31138567482033763511135325848070143, ply\_count=3, locs=(82, 113))
+Action: \{<Action.SSW: -25>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753968818039654427040547310921727, ply\_count=2, locs=(114, 92))
+Action: \{<Action.ESE: -15>: 1\}
+Player Id: 1
+Book State: Isolation(board=41442031564314999285562855338797055, ply\_count=3, locs=(69, 106))
+Action: \{<Action.ESE: -15>: 1\}
+Player Id: 1
+Book State: Isolation(board=36330547432744792663837022428850175, ply\_count=3, locs=(73, 112))
+Action: \{<Action.ESE: -15>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753973731114185340893513316820991, ply\_count=2, locs=(114, 85))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 1
+Book State: Isolation(board=20753973769799811568561646907418623, ply\_count=1, locs=(114, None))
+Action: \{65: -1, 101: 1, 31: -1, 27: -1, 92: -1, 93: -11, 85: -1\}
+Player Id: 0
+Book State: Isolation(board=20753973769799774675073499488315391, ply\_count=2, locs=(114, 65))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082683632224299003, ply\_count=1, locs=(2, None))
+Action: \{99: -1\}
+Player Id: 0
+Book State: Isolation(board=20751438468599355109758653501007871, ply\_count=2, locs=(114, 101))
+Action: \{<Action.ESE: -15>: -1\}
+Player Id: 0
+Book State: Isolation(board=41523161203939122082683632224299007, ply\_count=0, locs=(None, None))
+Action: \{16: 1, 2: 1, 98: 1, 45: 1, 80: -1, 17: 1, 114: 15, 21: 1, 55: 1, 60: 1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082683632222201855, ply\_count=1, locs=(21, None))
+Action: \{35: -1\}
+Player Id: 0
+Book State: Isolation(board=20753973769799811568561646773200895, ply\_count=2, locs=(114, 27))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 0
+Book State: Isolation(board=31138567486869466789593842546894847, ply\_count=2, locs=(55, 113))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 1
+Book State: Isolation(board=20753963711536992374846913352034303, ply\_count=3, locs=(87, 93))
+Action: \{<Action.ENE: 11>: -8\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082683632224233471, ply\_count=1, locs=(16, None))
+Action: \{99: -1\}
+Player Id: 1
+Book State: Isolation(board=31138567486864744459104585548556287, ply\_count=3, locs=(72, 113))
+Action: \{<Action.SSE: -27>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753963866279497285519447714424831, ply\_count=2, locs=(114, 93))
+Action: \{<Action.ESE: -15>: 3, <Action.SSE: -27>: 8\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082648447852210175, ply\_count=1, locs=(45, None))
+Action: \{113: -1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122046654835205335039, ply\_count=1, locs=(55, None))
+Action: \{113: -1\}
+Player Id: 0
+Book State: Isolation(board=41522527378639007967982883872630783, ply\_count=2, locs=(16, 99))
+Action: \{<Action.NNE: 25>: 1\}
+Player Id: 0
+Book State: Isolation(board=31138567486869465672701134959011839, ply\_count=2, locs=(60, 113))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 1
+Book State: Isolation(board=20753330040979383170818699362822143, ply\_count=3, locs=(99, 93))
+Action: \{<Action.ENE: 11>: -2, <Action.SSW: -25>: -1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939120929762127617452031, ply\_count=1, locs=(60, None))
+Action: \{113: -1\}
+
+Round No. 27
+Player Id: 1
+Book State: Isolation(board=41522527378639007967982883335825403, ply\_count=3, locs=(29, 99))
+Action: \{<Action.WNW: 15>: -1\}
+Player Id: 0
+Book State: Isolation(board=41522527378639007967982883872696315, ply\_count=2, locs=(2, 99))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082683632224167935, ply\_count=1, locs=(17, None))
+Action: \{114: -1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082402122885752831, ply\_count=3, locs=(48, 35))
+Action: \{<Action.SSW: -25>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753973769799811568561646907287551, ply\_count=2, locs=(17, 114))
+Action: \{<Action.NNE: 25>: 1\}
+Player Id: 1
+Book State: Isolation(board=20753334992739540312339798959319039, ply\_count=3, locs=(99, 92))
+Action: \{<Action.WNW: 15>: -1\}
+Player Id: 0
+Book State: Isolation(board=36330547432754237396802761719277567, ply\_count=2, locs=(98, 112))
+Action: \{<Action.SSW: -25>: 1\}
+Player Id: 1
+Book State: Isolation(board=31138567332126960762028600596621311, ply\_count=3, locs=(87, 113))
+Action: \{<Action.SSW: -25>: -1\}
+Player Id: 1
+Book State: Isolation(board=20753973769799811568557248860776447, ply\_count=3, locs=(42, 114))
+Action: \{<Action.SSE: -27>: -1\}
+Player Id: 1
+Book State: Isolation(board=41522527378639007967980684849375231, ply\_count=3, locs=(41, 99))
+Action: \{<Action.ENE: 11>: -1\}
+Player Id: 1
+Book State: Isolation(board=41523161202730196263069003049592831, ply\_count=1, locs=(80, None))
+Action: \{106: 1\}
+Player Id: 1
+Book State: Isolation(board=20753973615057306657889112410810367, ply\_count=3, locs=(87, 27))
+Action: \{<Action.SSE: -27>: -1\}
+Player Id: 0
+Book State: Isolation(board=31138567486869466825587455193769983, ply\_count=2, locs=(45, 113))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 1
+Book State: Isolation(board=20753973615057269764400965125924863, ply\_count=3, locs=(87, 65))
+Action: \{<Action.NNW: 27>: -1\}
+Player Id: 1
+Book State: Isolation(board=20753973576371680430220978954430463, ply\_count=3, locs=(87, 85))
+Action: \{<Action.NNW: 27>: -1\}
+Player Id: 0
+Book State: Isolation(board=41523161203939122082683597862463487, ply\_count=2, locs=(21, 35))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 0
+Book State: Isolation(board=41442031564315589581373214044448767, ply\_count=2, locs=(80, 106))
+Action: \{<Action.WSW: -11>: -1\}
+Player Id: 1
+Book State: Isolation(board=20750804643299240995057905149405183, ply\_count=3, locs=(99, 101))
+Action: \{<Action.ENE: 11>: 1\}
+Player Id: 0
+Book State: Isolation(board=20753973769799811568561644759934975, ply\_count=2, locs=(114, 31))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 1
+Book State: Isolation(board=41522844291289065025333258048497663, ply\_count=1, locs=(98, None))
+Action: \{112: -1\}
+Player Id: 1
+Book State: Isolation(board=20753973615057306657889110397544447, ply\_count=3, locs=(87, 31))
+Action: \{<Action.SSE: -27>: -1\}
+Player Id: 1
+Book State: Isolation(board=31138567482033763511135325848070143, ply\_count=3, locs=(82, 113))
+Action: \{<Action.SSW: -25>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753968818039654427040547310921727, ply\_count=2, locs=(114, 92))
+Action: \{<Action.ESE: -15>: 1\}
+Player Id: 1
+Book State: Isolation(board=41442031564314999285562855338797055, ply\_count=3, locs=(69, 106))
+Action: \{<Action.ESE: -15>: 1\}
+Player Id: 1
+Book State: Isolation(board=36330547432744792663837022428850175, ply\_count=3, locs=(73, 112))
+Action: \{<Action.ESE: -15>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753973731114185340893513316820991, ply\_count=2, locs=(114, 85))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 1
+Book State: Isolation(board=20753973769799811568561646907418623, ply\_count=1, locs=(114, None))
+Action: \{65: -1, 101: 1, 31: -1, 27: -1, 92: -1, 93: -12, 85: -1\}
+Player Id: 0
+Book State: Isolation(board=20753973769799774675073499488315391, ply\_count=2, locs=(114, 65))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082683632224299003, ply\_count=1, locs=(2, None))
+Action: \{99: -1\}
+Player Id: 0
+Book State: Isolation(board=20751438468599355109758653501007871, ply\_count=2, locs=(114, 101))
+Action: \{<Action.ESE: -15>: -1\}
+Player Id: 0
+Book State: Isolation(board=41523161203939122082683632224299007, ply\_count=0, locs=(None, None))
+Action: \{16: 1, 2: 1, 98: 1, 45: 1, 80: -1, 17: 1, 114: 16, 21: 1, 55: 1, 60: 1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082683632222201855, ply\_count=1, locs=(21, None))
+Action: \{35: -1\}
+Player Id: 0
+Book State: Isolation(board=20753973769799811568561646773200895, ply\_count=2, locs=(114, 27))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 0
+Book State: Isolation(board=31138567486869466789593842546894847, ply\_count=2, locs=(55, 113))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 1
+Book State: Isolation(board=20753963711536992374846913352034303, ply\_count=3, locs=(87, 93))
+Action: \{<Action.ENE: 11>: -8\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082683632224233471, ply\_count=1, locs=(16, None))
+Action: \{99: -1\}
+Player Id: 1
+Book State: Isolation(board=31138567486864744459104585548556287, ply\_count=3, locs=(72, 113))
+Action: \{<Action.SSE: -27>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753963866279497285519447714424831, ply\_count=2, locs=(114, 93))
+Action: \{<Action.ESE: -15>: 4, <Action.SSE: -27>: 8\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082648447852210175, ply\_count=1, locs=(45, None))
+Action: \{113: -1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122046654835205335039, ply\_count=1, locs=(55, None))
+Action: \{113: -1\}
+Player Id: 0
+Book State: Isolation(board=41522527378639007967982883872630783, ply\_count=2, locs=(16, 99))
+Action: \{<Action.NNE: 25>: 1\}
+Player Id: 0
+Book State: Isolation(board=31138567486869465672701134959011839, ply\_count=2, locs=(60, 113))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 1
+Book State: Isolation(board=20753330040979383170818699362822143, ply\_count=3, locs=(99, 93))
+Action: \{<Action.ENE: 11>: -3, <Action.SSW: -25>: -1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939120929762127617452031, ply\_count=1, locs=(60, None))
+Action: \{113: -1\}
+
+Round No. 28
+Player Id: 1
+Book State: Isolation(board=41522527378639007967982883335825403, ply\_count=3, locs=(29, 99))
+Action: \{<Action.WNW: 15>: -1\}
+Player Id: 0
+Book State: Isolation(board=41522527378639007967982883872696315, ply\_count=2, locs=(2, 99))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082683632224167935, ply\_count=1, locs=(17, None))
+Action: \{114: -1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082402122885752831, ply\_count=3, locs=(48, 35))
+Action: \{<Action.SSW: -25>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753973769799811568561646907287551, ply\_count=2, locs=(17, 114))
+Action: \{<Action.NNE: 25>: 1\}
+Player Id: 1
+Book State: Isolation(board=20753334992739540312339798959319039, ply\_count=3, locs=(99, 92))
+Action: \{<Action.WNW: 15>: -1\}
+Player Id: 0
+Book State: Isolation(board=36330547432754237396802761719277567, ply\_count=2, locs=(98, 112))
+Action: \{<Action.SSW: -25>: 1\}
+Player Id: 1
+Book State: Isolation(board=31138567332126960762028600596621311, ply\_count=3, locs=(87, 113))
+Action: \{<Action.SSW: -25>: -1\}
+Player Id: 1
+Book State: Isolation(board=20753973769799811568557248860776447, ply\_count=3, locs=(42, 114))
+Action: \{<Action.SSE: -27>: -1\}
+Player Id: 1
+Book State: Isolation(board=41522527378639007967980684849375231, ply\_count=3, locs=(41, 99))
+Action: \{<Action.ENE: 11>: -1\}
+Player Id: 1
+Book State: Isolation(board=41523161202730196263069003049592831, ply\_count=1, locs=(80, None))
+Action: \{106: 1\}
+Player Id: 1
+Book State: Isolation(board=20753973615057306657889112410810367, ply\_count=3, locs=(87, 27))
+Action: \{<Action.SSE: -27>: -1\}
+Player Id: 0
+Book State: Isolation(board=31138567486869466825587455193769983, ply\_count=2, locs=(45, 113))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 1
+Book State: Isolation(board=20753973615057269764400965125924863, ply\_count=3, locs=(87, 65))
+Action: \{<Action.NNW: 27>: -1\}
+Player Id: 1
+Book State: Isolation(board=20753973576371680430220978954430463, ply\_count=3, locs=(87, 85))
+Action: \{<Action.NNW: 27>: -1\}
+Player Id: 0
+Book State: Isolation(board=41523161203939122082683597862463487, ply\_count=2, locs=(21, 35))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 0
+Book State: Isolation(board=41442031564315589581373214044448767, ply\_count=2, locs=(80, 106))
+Action: \{<Action.WSW: -11>: -1\}
+Player Id: 1
+Book State: Isolation(board=20750804643299240995057905149405183, ply\_count=3, locs=(99, 101))
+Action: \{<Action.ENE: 11>: 1\}
+Player Id: 0
+Book State: Isolation(board=20753973769799811568561644759934975, ply\_count=2, locs=(114, 31))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 1
+Book State: Isolation(board=41522844291289065025333258048497663, ply\_count=1, locs=(98, None))
+Action: \{112: -1\}
+Player Id: 1
+Book State: Isolation(board=20753973615057306657889110397544447, ply\_count=3, locs=(87, 31))
+Action: \{<Action.SSE: -27>: -1\}
+Player Id: 1
+Book State: Isolation(board=31138567482033763511135325848070143, ply\_count=3, locs=(82, 113))
+Action: \{<Action.SSW: -25>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753968818039654427040547310921727, ply\_count=2, locs=(114, 92))
+Action: \{<Action.ESE: -15>: 1\}
+Player Id: 1
+Book State: Isolation(board=41442031564314999285562855338797055, ply\_count=3, locs=(69, 106))
+Action: \{<Action.ESE: -15>: 1\}
+Player Id: 1
+Book State: Isolation(board=36330547432744792663837022428850175, ply\_count=3, locs=(73, 112))
+Action: \{<Action.ESE: -15>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753973731114185340893513316820991, ply\_count=2, locs=(114, 85))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 1
+Book State: Isolation(board=20753973769799811568561646907418623, ply\_count=1, locs=(114, None))
+Action: \{65: -1, 101: 1, 31: -1, 27: -1, 92: -1, 93: -13, 85: -1\}
+Player Id: 0
+Book State: Isolation(board=20753973769799774675073499488315391, ply\_count=2, locs=(114, 65))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082683632224299003, ply\_count=1, locs=(2, None))
+Action: \{99: -1\}
+Player Id: 0
+Book State: Isolation(board=20751438468599355109758653501007871, ply\_count=2, locs=(114, 101))
+Action: \{<Action.ESE: -15>: -1\}
+Player Id: 0
+Book State: Isolation(board=41523161203939122082683632224299007, ply\_count=0, locs=(None, None))
+Action: \{16: 1, 2: 1, 98: 1, 45: 1, 80: -1, 17: 1, 114: 17, 21: 1, 55: 1, 60: 1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082683632222201855, ply\_count=1, locs=(21, None))
+Action: \{35: -1\}
+Player Id: 0
+Book State: Isolation(board=20753973769799811568561646773200895, ply\_count=2, locs=(114, 27))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 0
+Book State: Isolation(board=31138567486869466789593842546894847, ply\_count=2, locs=(55, 113))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 1
+Book State: Isolation(board=20753963711536992374846913352034303, ply\_count=3, locs=(87, 93))
+Action: \{<Action.ENE: 11>: -8\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082683632224233471, ply\_count=1, locs=(16, None))
+Action: \{99: -1\}
+Player Id: 1
+Book State: Isolation(board=31138567486864744459104585548556287, ply\_count=3, locs=(72, 113))
+Action: \{<Action.SSE: -27>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753963866279497285519447714424831, ply\_count=2, locs=(114, 93))
+Action: \{<Action.ESE: -15>: 5, <Action.SSE: -27>: 8\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082648447852210175, ply\_count=1, locs=(45, None))
+Action: \{113: -1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122046654835205335039, ply\_count=1, locs=(55, None))
+Action: \{113: -1\}
+Player Id: 0
+Book State: Isolation(board=41522527378639007967982883872630783, ply\_count=2, locs=(16, 99))
+Action: \{<Action.NNE: 25>: 1\}
+Player Id: 0
+Book State: Isolation(board=31138567486869465672701134959011839, ply\_count=2, locs=(60, 113))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 1
+Book State: Isolation(board=20753330040979383170818699362822143, ply\_count=3, locs=(99, 93))
+Action: \{<Action.ESE: -15>: -1, <Action.ENE: 11>: -3, <Action.SSW: -25>: -1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939120929762127617452031, ply\_count=1, locs=(60, None))
+Action: \{113: -1\}
+
+Round No. 29
+Player Id: 1
+Book State: Isolation(board=41522527378639007967982883335825403, ply\_count=3, locs=(29, 99))
+Action: \{<Action.WNW: 15>: -1\}
+Player Id: 0
+Book State: Isolation(board=41522527378639007967982883872696315, ply\_count=2, locs=(2, 99))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082683632224167935, ply\_count=1, locs=(17, None))
+Action: \{114: -1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082402122885752831, ply\_count=3, locs=(48, 35))
+Action: \{<Action.SSW: -25>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753973769799811568561646907287551, ply\_count=2, locs=(17, 114))
+Action: \{<Action.NNE: 25>: 1\}
+Player Id: 1
+Book State: Isolation(board=20753334992739540312339798959319039, ply\_count=3, locs=(99, 92))
+Action: \{<Action.WNW: 15>: -1\}
+Player Id: 0
+Book State: Isolation(board=36330547432754237396802761719277567, ply\_count=2, locs=(98, 112))
+Action: \{<Action.SSW: -25>: 1\}
+Player Id: 1
+Book State: Isolation(board=31138567332126960762028600596621311, ply\_count=3, locs=(87, 113))
+Action: \{<Action.SSW: -25>: -1\}
+Player Id: 1
+Book State: Isolation(board=20753973769799811568557248860776447, ply\_count=3, locs=(42, 114))
+Action: \{<Action.SSE: -27>: -1\}
+Player Id: 1
+Book State: Isolation(board=41522527378639007967980684849375231, ply\_count=3, locs=(41, 99))
+Action: \{<Action.ENE: 11>: -1\}
+Player Id: 1
+Book State: Isolation(board=41523161202730196263069003049592831, ply\_count=1, locs=(80, None))
+Action: \{106: 1\}
+Player Id: 1
+Book State: Isolation(board=20753973615057306657889112410810367, ply\_count=3, locs=(87, 27))
+Action: \{<Action.SSE: -27>: -1\}
+Player Id: 0
+Book State: Isolation(board=31138567486869466825587455193769983, ply\_count=2, locs=(45, 113))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 1
+Book State: Isolation(board=20753973615057269764400965125924863, ply\_count=3, locs=(87, 65))
+Action: \{<Action.NNW: 27>: -1\}
+Player Id: 1
+Book State: Isolation(board=20753973576371680430220978954430463, ply\_count=3, locs=(87, 85))
+Action: \{<Action.NNW: 27>: -1\}
+Player Id: 0
+Book State: Isolation(board=41523161203939122082683597862463487, ply\_count=2, locs=(21, 35))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 0
+Book State: Isolation(board=41442031564315589581373214044448767, ply\_count=2, locs=(80, 106))
+Action: \{<Action.WSW: -11>: -1\}
+Player Id: 1
+Book State: Isolation(board=20750804643299240995057905149405183, ply\_count=3, locs=(99, 101))
+Action: \{<Action.ENE: 11>: 1\}
+Player Id: 0
+Book State: Isolation(board=20753973769799811568561644759934975, ply\_count=2, locs=(114, 31))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 1
+Book State: Isolation(board=41522844291289065025333258048497663, ply\_count=1, locs=(98, None))
+Action: \{112: -1\}
+Player Id: 1
+Book State: Isolation(board=20753973615057306657889110397544447, ply\_count=3, locs=(87, 31))
+Action: \{<Action.SSE: -27>: -1\}
+Player Id: 1
+Book State: Isolation(board=31138567482033763511135325848070143, ply\_count=3, locs=(82, 113))
+Action: \{<Action.SSW: -25>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753968818039654427040547310921727, ply\_count=2, locs=(114, 92))
+Action: \{<Action.ESE: -15>: 1\}
+Player Id: 1
+Book State: Isolation(board=41442031564314999285562855338797055, ply\_count=3, locs=(69, 106))
+Action: \{<Action.ESE: -15>: 1\}
+Player Id: 1
+Book State: Isolation(board=36330547432744792663837022428850175, ply\_count=3, locs=(73, 112))
+Action: \{<Action.ESE: -15>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753973731114185340893513316820991, ply\_count=2, locs=(114, 85))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 1
+Book State: Isolation(board=20753973769799811568561646907418623, ply\_count=1, locs=(114, None))
+Action: \{65: -1, 101: 1, 31: -1, 27: -1, 92: -1, 93: -14, 85: -1\}
+Player Id: 0
+Book State: Isolation(board=20753973769799774675073499488315391, ply\_count=2, locs=(114, 65))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082683632224299003, ply\_count=1, locs=(2, None))
+Action: \{99: -1\}
+Player Id: 0
+Book State: Isolation(board=20751438468599355109758653501007871, ply\_count=2, locs=(114, 101))
+Action: \{<Action.ESE: -15>: -1\}
+Player Id: 0
+Book State: Isolation(board=41523161203939122082683632224299007, ply\_count=0, locs=(None, None))
+Action: \{16: 1, 2: 1, 98: 1, 45: 1, 80: -1, 17: 1, 114: 18, 21: 1, 55: 1, 60: 1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082683632222201855, ply\_count=1, locs=(21, None))
+Action: \{35: -1\}
+Player Id: 0
+Book State: Isolation(board=20753973769799811568561646773200895, ply\_count=2, locs=(114, 27))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 0
+Book State: Isolation(board=31138567486869466789593842546894847, ply\_count=2, locs=(55, 113))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 1
+Book State: Isolation(board=20753963711536992374846913352034303, ply\_count=3, locs=(87, 93))
+Action: \{<Action.ENE: 11>: -9\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082683632224233471, ply\_count=1, locs=(16, None))
+Action: \{99: -1\}
+Player Id: 1
+Book State: Isolation(board=31138567486864744459104585548556287, ply\_count=3, locs=(72, 113))
+Action: \{<Action.SSE: -27>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753963866279497285519447714424831, ply\_count=2, locs=(114, 93))
+Action: \{<Action.ESE: -15>: 5, <Action.SSE: -27>: 9\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082648447852210175, ply\_count=1, locs=(45, None))
+Action: \{113: -1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122046654835205335039, ply\_count=1, locs=(55, None))
+Action: \{113: -1\}
+Player Id: 0
+Book State: Isolation(board=41522527378639007967982883872630783, ply\_count=2, locs=(16, 99))
+Action: \{<Action.NNE: 25>: 1\}
+Player Id: 0
+Book State: Isolation(board=31138567486869465672701134959011839, ply\_count=2, locs=(60, 113))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 1
+Book State: Isolation(board=20753330040979383170818699362822143, ply\_count=3, locs=(99, 93))
+Action: \{<Action.ESE: -15>: -1, <Action.ENE: 11>: -3, <Action.SSW: -25>: -1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939120929762127617452031, ply\_count=1, locs=(60, None))
+Action: \{113: -1\}
+
+Round No. 30
+Player Id: 1
+Book State: Isolation(board=41522527378639007967982883335825403, ply\_count=3, locs=(29, 99))
+Action: \{<Action.WNW: 15>: -1\}
+Player Id: 0
+Book State: Isolation(board=41522527378639007967982883872696315, ply\_count=2, locs=(2, 99))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082683632224167935, ply\_count=1, locs=(17, None))
+Action: \{114: -1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082402122885752831, ply\_count=3, locs=(48, 35))
+Action: \{<Action.SSW: -25>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753973769799811568561646907287551, ply\_count=2, locs=(17, 114))
+Action: \{<Action.NNE: 25>: 1\}
+Player Id: 1
+Book State: Isolation(board=20753334992739540312339798959319039, ply\_count=3, locs=(99, 92))
+Action: \{<Action.WNW: 15>: -1\}
+Player Id: 0
+Book State: Isolation(board=36330547432754237396802761719277567, ply\_count=2, locs=(98, 112))
+Action: \{<Action.SSW: -25>: 1\}
+Player Id: 1
+Book State: Isolation(board=31138567332126960762028600596621311, ply\_count=3, locs=(87, 113))
+Action: \{<Action.SSW: -25>: -1\}
+Player Id: 1
+Book State: Isolation(board=20753973769799811568557248860776447, ply\_count=3, locs=(42, 114))
+Action: \{<Action.SSE: -27>: -1\}
+Player Id: 1
+Book State: Isolation(board=41522527378639007967980684849375231, ply\_count=3, locs=(41, 99))
+Action: \{<Action.ENE: 11>: -1\}
+Player Id: 1
+Book State: Isolation(board=41523161202730196263069003049592831, ply\_count=1, locs=(80, None))
+Action: \{106: 1\}
+Player Id: 1
+Book State: Isolation(board=20753973615057306657889112410810367, ply\_count=3, locs=(87, 27))
+Action: \{<Action.SSE: -27>: -1\}
+Player Id: 0
+Book State: Isolation(board=31138567486869466825587455193769983, ply\_count=2, locs=(45, 113))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 1
+Book State: Isolation(board=20753973615057269764400965125924863, ply\_count=3, locs=(87, 65))
+Action: \{<Action.NNW: 27>: -1\}
+Player Id: 1
+Book State: Isolation(board=20753973576371680430220978954430463, ply\_count=3, locs=(87, 85))
+Action: \{<Action.NNW: 27>: -1\}
+Player Id: 0
+Book State: Isolation(board=41523161203939122082683597862463487, ply\_count=2, locs=(21, 35))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 0
+Book State: Isolation(board=41442031564315589581373214044448767, ply\_count=2, locs=(80, 106))
+Action: \{<Action.WSW: -11>: -1\}
+Player Id: 1
+Book State: Isolation(board=20750804643299240995057905149405183, ply\_count=3, locs=(99, 101))
+Action: \{<Action.ENE: 11>: 1\}
+Player Id: 0
+Book State: Isolation(board=20753973769799811568561644759934975, ply\_count=2, locs=(114, 31))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 1
+Book State: Isolation(board=41522844291289065025333258048497663, ply\_count=1, locs=(98, None))
+Action: \{112: -1\}
+Player Id: 1
+Book State: Isolation(board=20753973615057306657889110397544447, ply\_count=3, locs=(87, 31))
+Action: \{<Action.SSE: -27>: -1\}
+Player Id: 1
+Book State: Isolation(board=31138567482033763511135325848070143, ply\_count=3, locs=(82, 113))
+Action: \{<Action.SSW: -25>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753968818039654427040547310921727, ply\_count=2, locs=(114, 92))
+Action: \{<Action.ESE: -15>: 1\}
+Player Id: 1
+Book State: Isolation(board=41442031564314999285562855338797055, ply\_count=3, locs=(69, 106))
+Action: \{<Action.ESE: -15>: 1\}
+Player Id: 1
+Book State: Isolation(board=36330547432744792663837022428850175, ply\_count=3, locs=(73, 112))
+Action: \{<Action.ESE: -15>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753973731114185340893513316820991, ply\_count=2, locs=(114, 85))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 1
+Book State: Isolation(board=20753973769799811568561646907418623, ply\_count=1, locs=(114, None))
+Action: \{65: -1, 101: 1, 31: -1, 27: -1, 92: -1, 93: -15, 85: -1\}
+Player Id: 0
+Book State: Isolation(board=20753973769799774675073499488315391, ply\_count=2, locs=(114, 65))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082683632224299003, ply\_count=1, locs=(2, None))
+Action: \{99: -1\}
+Player Id: 0
+Book State: Isolation(board=20751438468599355109758653501007871, ply\_count=2, locs=(114, 101))
+Action: \{<Action.ESE: -15>: -1\}
+Player Id: 0
+Book State: Isolation(board=41523161203939122082683632224299007, ply\_count=0, locs=(None, None))
+Action: \{16: 1, 2: 1, 98: 1, 45: 1, 80: -1, 17: 1, 114: 19, 21: 1, 55: 1, 60: 1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082683632222201855, ply\_count=1, locs=(21, None))
+Action: \{35: -1\}
+Player Id: 0
+Book State: Isolation(board=20753973769799811568561646773200895, ply\_count=2, locs=(114, 27))
+Action: \{<Action.SSE: -27>: 1\}
+Player Id: 0
+Book State: Isolation(board=31138567486869466789593842546894847, ply\_count=2, locs=(55, 113))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 1
+Book State: Isolation(board=20753963711536992374846913352034303, ply\_count=3, locs=(87, 93))
+Action: \{<Action.ENE: 11>: -9\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082683632224233471, ply\_count=1, locs=(16, None))
+Action: \{99: -1\}
+Player Id: 1
+Book State: Isolation(board=31138567486864744459104585548556287, ply\_count=3, locs=(72, 113))
+Action: \{<Action.SSE: -27>: -1\}
+Player Id: 0
+Book State: Isolation(board=20753963866279497285519447714424831, ply\_count=2, locs=(114, 93))
+Action: \{<Action.ESE: -15>: 6, <Action.SSE: -27>: 9\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122082648447852210175, ply\_count=1, locs=(45, None))
+Action: \{113: -1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939122046654835205335039, ply\_count=1, locs=(55, None))
+Action: \{113: -1\}
+Player Id: 0
+Book State: Isolation(board=41522527378639007967982883872630783, ply\_count=2, locs=(16, 99))
+Action: \{<Action.NNE: 25>: 1\}
+Player Id: 0
+Book State: Isolation(board=31138567486869465672701134959011839, ply\_count=2, locs=(60, 113))
+Action: \{<Action.NNW: 27>: 1\}
+Player Id: 1
+Book State: Isolation(board=20753330040979383170818699362822143, ply\_count=3, locs=(99, 93))
+Action: \{<Action.ESE: -15>: -1, <Action.ENE: 11>: -4, <Action.SSW: -25>: -1\}
+Player Id: 1
+Book State: Isolation(board=41523161203939120929762127617452031, ply\_count=1, locs=(60, None))
+Action: \{113: -1\}
+
+Total time for 30 rounds: 9.874453067779541 seconds.
+Open Book Data for data.pickle file
+Book State: Isolation(board=41522527378639007967982883335825403, ply\_count=3, locs=(29, 99))
+Action: 15
+Book State: Isolation(board=20753973576371680430220978954430463, ply\_count=3, locs=(87, 85))
+Action: 27
+Book State: Isolation(board=41523161203939122082683632224167935, ply\_count=1, locs=(17, None))
+Action: 114
+Book State: Isolation(board=41523161203939122082402122885752831, ply\_count=3, locs=(48, 35))
+Action: -25
+Book State: Isolation(board=20753973769799811568561646907287551, ply\_count=2, locs=(17, 114))
+Action: 25
+Book State: Isolation(board=20753334992739540312339798959319039, ply\_count=3, locs=(99, 92))
+Action: 15
+Book State: Isolation(board=36330547432754237396802761719277567, ply\_count=2, locs=(98, 112))
+Action: -25
+Book State: Isolation(board=31138567332126960762028600596621311, ply\_count=3, locs=(87, 113))
+Action: -25
+Book State: Isolation(board=20753973769799811568557248860776447, ply\_count=3, locs=(42, 114))
+Action: -27
+Book State: Isolation(board=41522527378639007967980684849375231, ply\_count=3, locs=(41, 99))
+Action: 11
+Book State: Isolation(board=41523161202730196263069003049592831, ply\_count=1, locs=(80, None))
+Action: 106
+Book State: Isolation(board=20753973615057306657889112410810367, ply\_count=3, locs=(87, 27))
+Action: -27
+Book State: Isolation(board=36330547432744792663837022428850175, ply\_count=3, locs=(73, 112))
+Action: -15
+Book State: Isolation(board=20753973615057269764400965125924863, ply\_count=3, locs=(87, 65))
+Action: 27
+Book State: Isolation(board=41523161203939122082683632224299007, ply\_count=0, locs=(None, None))
+Action: 114
+Book State: Isolation(board=41442031564315589581373214044448767, ply\_count=2, locs=(80, 106))
+Action: -11
+Book State: Isolation(board=20750804643299240995057905149405183, ply\_count=3, locs=(99, 101))
+Action: 11
+Book State: Isolation(board=20753973769799811568561644759934975, ply\_count=2, locs=(114, 31))
+Action: -27
+Book State: Isolation(board=41522844291289065025333258048497663, ply\_count=1, locs=(98, None))
+Action: 112
+Book State: Isolation(board=20753973731114185340893513316820991, ply\_count=2, locs=(114, 85))
+Action: -27
+Book State: Isolation(board=20753973615057306657889110397544447, ply\_count=3, locs=(87, 31))
+Action: -27
+Book State: Isolation(board=41522527378639007967982883872696315, ply\_count=2, locs=(2, 99))
+Action: 27
+Book State: Isolation(board=20753968818039654427040547310921727, ply\_count=2, locs=(114, 92))
+Action: -15
+Book State: Isolation(board=41442031564314999285562855338797055, ply\_count=3, locs=(69, 106))
+Action: -15
+Book State: Isolation(board=31138567486869466825587455193769983, ply\_count=2, locs=(45, 113))
+Action: 27
+Book State: Isolation(board=31138567482033763511135325848070143, ply\_count=3, locs=(82, 113))
+Action: -25
+Book State: Isolation(board=20753973769799811568561646907418623, ply\_count=1, locs=(114, None))
+Action: 101
+Book State: Isolation(board=20753973769799774675073499488315391, ply\_count=2, locs=(114, 65))
+Action: -27
+Book State: Isolation(board=41523161203939122082683632224299003, ply\_count=1, locs=(2, None))
+Action: 99
+Book State: Isolation(board=20751438468599355109758653501007871, ply\_count=2, locs=(114, 101))
+Action: -15
+Book State: Isolation(board=41523161203939122082683597862463487, ply\_count=2, locs=(21, 35))
+Action: 27
+Book State: Isolation(board=41523161203939122082683632222201855, ply\_count=1, locs=(21, None))
+Action: 35
+Book State: Isolation(board=20753973769799811568561646773200895, ply\_count=2, locs=(114, 27))
+Action: -27
+Book State: Isolation(board=31138567486869466789593842546894847, ply\_count=2, locs=(55, 113))
+Action: 27
+Book State: Isolation(board=20753963711536992374846913352034303, ply\_count=3, locs=(87, 93))
+Action: 11
+Book State: Isolation(board=41523161203939122082683632224233471, ply\_count=1, locs=(16, None))
+Action: 99
+Book State: Isolation(board=31138567486864744459104585548556287, ply\_count=3, locs=(72, 113))
+Action: -27
+Book State: Isolation(board=20753963866279497285519447714424831, ply\_count=2, locs=(114, 93))
+Action: -27
+Book State: Isolation(board=41523161203939122082648447852210175, ply\_count=1, locs=(45, None))
+Action: 113
+Book State: Isolation(board=41523161203939122046654835205335039, ply\_count=1, locs=(55, None))
+Action: 113
+Book State: Isolation(board=41522527378639007967982883872630783, ply\_count=2, locs=(16, 99))
+Action: 25
+Book State: Isolation(board=31138567486869465672701134959011839, ply\_count=2, locs=(60, 113))
+Action: 27
+Book State: Isolation(board=20753330040979383170818699362822143, ply\_count=3, locs=(99, 93))
+Action: -15
+Book State: Isolation(board=41523161203939120929762127617452031, ply\_count=1, locs=(60, None))
+Action: 113
+
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
